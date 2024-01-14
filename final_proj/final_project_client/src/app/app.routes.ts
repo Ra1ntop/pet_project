@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import {PDP_ROUTES} from "./pages/pdp/pdp.routes";
 
 export const routes: Routes = [
   {
@@ -15,5 +16,10 @@ export const routes: Routes = [
     path: 'plp',
     pathMatch: 'prefix',
     loadChildren: () => import('./pages/plp/plp.routes').then(r => r.PLP_ROUTES)
+  },
+  {
+    path: 'pdp',
+    pathMatch: 'prefix',
+    loadChildren: () => import('./pages/pdp/pdp.routes').then(r => r.PDP_ROUTES)
   },
 ];

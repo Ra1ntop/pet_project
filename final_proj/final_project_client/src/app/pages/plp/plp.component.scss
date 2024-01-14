@@ -30,17 +30,12 @@
 
 }
 
-span {
-  display: none;
-}
-
-.myCard:hover + span {
+.myCard:hover {
   width: 270px;
   height: 393px;
   background-color: rgba(224, 224, 224, 0.16);
   transition: 1s ease-in-out;
   cursor: pointer;
-  display: inline-block;
 }
 
 .myCard-body {

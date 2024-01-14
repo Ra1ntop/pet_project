@@ -3,6 +3,7 @@ import {PlpService} from "../../services/plp.service";
 import {Observable} from "rxjs";
 import {ProductPlp} from "../../models/product-plp";
 import {AsyncPipe, JsonPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-plp',
@@ -21,6 +22,10 @@ export class PlpComponent {
 
   products$: Observable<ProductPlp[]> = this._plpService.loadProducts();
 
-  constructor(private _plpService: PlpService) {
+  constructor(private _plpService: PlpService, private _router: Router) {
+  }
+
+  goToProductDetails(id: number): void {
+    this._router.navigateByUrl('/pdp/' + id);
   }
 }
