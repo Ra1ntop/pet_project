@@ -19,6 +19,12 @@ public class ProductPdpFacadeImpl implements ProductPdpFacade {
     private final ProductVariantService productVariantService;
     private final ProductService productService;
 
+
+    @Override
+    public boolean isProductInProductIdExist(Long productId) {
+        return productService.isProductExists(productId);
+    }
+
     @Override
     public ProductPdpDto findAllByProduct(Long productId) {
         Product product = productService.findById(productId);

@@ -1,1 +1,43 @@
-<p>pdp works!</p>
+<ng-container *ngIf="productPdp$ | async as product">
+  <div class="card-container">
+    <div class="card-header">
+
+    </div>
+    <div class="middle">
+      <div class="middle_container_images">
+        <button class="img_button_slider" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+          <
+        </button>
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{product.images.at(0)}}" class="middle_images" alt="...">
+            </div>
+            <ng-container *ngFor="let image of product.images; let i = index">
+              <div class="carousel-item" *ngIf="i !== 0">
+                <img src="{{image}}" class="middle_images" alt="...">
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <button class="img_button_slider" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+          >
+        </button>
+      </div>
+      <div class="middle_text">
+        <div class="middle_text_head_inner">
+          <h1>{{ product.name }}</h1>
+        </div>
+        <div class="middle_text_middle_inner">
+
+        </div>
+        <div class="middle_text_footer_inner">
+          <p>{{product.description}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

@@ -5,5 +5,6 @@ import com.ra1ntest.service.CrudService;
 import com.ra1ntest.service.FindAllService;
 
 public interface ProductService extends CrudService<Product>, FindAllService<Product> {
+    boolean isProductExists(Long id);
 
 }

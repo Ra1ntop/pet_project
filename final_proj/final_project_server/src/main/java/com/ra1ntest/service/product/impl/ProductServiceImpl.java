@@ -33,6 +33,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public boolean isProductExists(Long id) {
+        if (id == null) {
+            return false;
+        }
+        if (productRepository.findById(id).isEmpty()) {
+            return false;
+        }
+        if (productRepository.findById(id).isPresent()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public Product findById(Long id) {
         if (id == null) {
             throw new NonValidFieldDataException(NON_VALID_FIELD_DATA_EXCEPTION);
