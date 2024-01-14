@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ra1ntest.FinalProjectServerApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.604 s -- in com.ra1ntest.FinalProjectServerApplicationTests

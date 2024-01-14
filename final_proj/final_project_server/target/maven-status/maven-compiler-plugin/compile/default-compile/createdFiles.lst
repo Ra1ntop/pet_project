@@ -1,0 +1,8 @@
+com/ra1ntest/repository/BaseRepository.class
+com/ra1ntest/FinalProjectServerApplication.class
+com/ra1ntest/repository/ProductRepository.class
+com/ra1ntest/persistance/entity/BaseEntity.class
+com/ra1ntest/service/CrudService.class
+com/ra1ntest/service/impl/ProductServiceImpl.class
+com/ra1ntest/service/ProductService.class
+com/ra1ntest/persistance/entity/product/Product.class
