@@ -1,0 +1,57 @@
+.middle_content_pro {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.middle_content_text {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.middle_content_background {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.middle_content_img {
+  width: 70%;
+}
+
+.product_img {
+  background-image: url("https://www.apple.com/v/iphone/home/br/images/overview/hero/hero_iphone_15_pro__eqwrvy72748y_medium_2x.jpg");
+}
+
+
+//font styles
+.middle_content_text_new {
+  margin-right: 13px;
+  color: #f56300;
+}
+
+.middle_content_text_model_name {
+  color: #dfd3c3;
+}
+
+.middle_content_text_model_feature {
+  color: #c7b198;
+  font-family: 'Lemon', serif;
+}
+
+.middle_content_text_model_coast {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #f0ece2;
+}
+
+.middle_content_text_model_more {
+  margin-top: 10px;
+}

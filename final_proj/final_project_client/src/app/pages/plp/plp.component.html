@@ -1,0 +1,15 @@
+<ng-container *ngIf="products$ | async as products">
+  <div class="main_card_container">
+    <div class="card_container">
+      <div class="myCard" *ngFor="let product of products">
+        <img src="{{product?.image}}" class="card-img-top car_container_image" alt="...">
+        <span class="card_container_span">More info</span>
+        <div class="myCard-body">
+          <h5 class="myCard-title">{{ product?.name }}</h5>
+          <p class="myCard-text">Від {{ product?.minPrice }} до {{ product?.maxPrice }}</p>
+          <a href="#" class="btn btn-primary rounded-pill">Придбати</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
