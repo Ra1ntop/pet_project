@@ -49,28 +49,29 @@ export class PdpComponent implements OnInit, OnDestroy {
           if (product) {
             product.variantDtos.forEach(variant =>{
               this.ssdSet.add(variant.ssd);
-              this.colorSet.add(variant.productColor);
             })
             this._productPdpSub$.next(product)
           }
         })
     }
-
-
     this.form.valueChanges
       .pipe(
-        filter(value => value.ssd && value.color),
+        filter(value => value.ssd),
         switchMap(value => {
           return this.productPdp$
             .pipe(
               map(product => {
+                console.log('value', value);
                 let variants = product?.variantDtos;
-
+                variants?.forEach(variant=>{
+                  if (variant.ssd === value.ssd){
+                    console.log('variant', variant)
+                    this.colorSet.add(variant.productColor);
+                  }
+                })
                 if (variants){
                   for (let i = 0; i < variants?.length; i++) {
                     if(variants[i].ssd === value.ssd && variants[i].productColor === value.color){
-                      console.log('price', variants[i].price);
-                      console.log('variantPrice', variants[i]);
                       this._pricepSub$.next(variants[i].price);
                       break;
                     }else {
@@ -88,12 +89,12 @@ export class PdpComponent implements OnInit, OnDestroy {
       .subscribe(value => console.log('form', value));
   }
   addSsd(ssd: number):void {
+    this.colorSet.clear();
     this.form.controls['ssd'].setValue(ssd);
   }
 
   addColor(color: string):void{
     this.form.controls['color'].setValue(color);
-
   }
 
   ngOnDestroy(): void {

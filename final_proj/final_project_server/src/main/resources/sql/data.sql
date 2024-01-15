@@ -23,7 +23,7 @@
 # insert into product_color values(3, 'White Titanium');
 # insert into product_color values(4, 'Black Titanium');
 #
-# insert into product_variant values(default, '4852 мАч, до 29 ч відтворення відео', '48 + 12.7 + 13.4 Мп', 'A17 Bionic 6 ядер 3,7 ГГц', 'iOS 17', 55999.00, 8 , 'Face ID', 'Dynamic Island Дивовижний спосіб взаємодії з iPhone', 'Дві SIM-карти (дві активні eSIM або nano-SIM та eSIM)', 256, '4K: 60, 30 кадрів/с', 'IP68 згідно зі стандартом IEC 60529', 2, 1);
+# insert into product_variant values(default, '4852 мАч, до 29 ч відтворення відео', '48 + 12.7 + 13.4 Мп', 'A17 Bionic 6 ядер 3,7 ГГц', 'iOS 17', 55999.00, 8 , 'Face ID', 'Dynamic Island Дивовижний спосіб взаємодії з iPhone', 'Дві SIM-карти (дві активні eSIM або nano-SIM та eSIM)', 256, '4K: 60, 30 кадрів/с', 'IP68 згідно зі стандартом IEC 60529', 2, 2);
 # insert into product_variant values(default, '4852 мАч, до 29 ч відтворення відео', '48 + 12.7 + 13.4 Мп', 'A17 Bionic 6 ядер 3,7 ГГц', 'iOS 17', 66999.00, 8, 'Face ID', 'Dynamic Island Дивовижний спосіб взаємодії з iPhone', 'Дві SIM-карти (дві активні eSIM або nano-SIM та eSIM)', 512, '4K: 60, 30 кадрів/с', 'IP68 згідно зі стандартом IEC 60529', 2, 2);
 # insert into product_variant values(default, '4852 мАч, до 29 ч відтворення відео', '48 + 12.7 + 13.4 Мп', 'A17 Bionic 6 ядер 3,7 ГГц', 'iOS 17', 75999.00, 8, 'Face ID', 'Dynamic Island Дивовижний спосіб взаємодії з iPhone', 'Дві SIM-карти (дві активні eSIM або nano-SIM та eSIM)', 1024, '4K: 60, 30 кадрів/с', 'IP68 згідно зі стандартом IEC 60529', 2, 3);
 #
