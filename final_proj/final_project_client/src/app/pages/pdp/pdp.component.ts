@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PdpService} from "../../services/pdp.service";
-import {Router} from "@angular/router";
-import {ProductPdp} from "../../models/product-pdp";
-import {BehaviorSubject, Observable, of} from "rxjs";
-import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
+import { Component, OnDestroy, OnInit} from '@angular/core';
+import { PdpService } from "../../services/pdp.service";
+import { Router } from "@angular/router";
+import { ProductPdp } from "../../models/product-pdp";
+import { BehaviorSubject, Observable, filter, map, switchMap } from "rxjs";
+import { AsyncPipe, JsonPipe, NgForOf, NgIf } from "@angular/common";
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pdp',
@@ -22,10 +23,21 @@ export class PdpComponent implements OnInit, OnDestroy {
   private _productPdpSub$ =
     new BehaviorSubject<ProductPdp | undefined>(undefined);
 
-  productPdp$: Observable<ProductPdp | undefined> = this._productPdpSub$.asObservable();
+  private _pricepSub$ =
+    new BehaviorSubject<string | undefined>(undefined);
 
-  constructor(private _router: Router, private _pdpService: PdpService) {
-  }
+  ssdSet: Set<number> = new Set<number>();
+  colorSet: Set<string> = new Set<string>();
+
+  readonly productPdp$: Observable<ProductPdp | undefined> = this._productPdpSub$.asObservable();
+  readonly price$: Observable<string | undefined> = this._pricepSub$.asObservable();
+
+  form: FormGroup = this._fb.group({
+    ssd: new FormControl(null, [Validators.required]),
+    color: new FormControl(null, [Validators.required]),
+  })
+
+  constructor(private _router: Router, private _fb: FormBuilder , private _pdpService: PdpService) { }
 
   ngOnInit(): void {
     let url = this._router.routerState.snapshot.url;
@@ -35,11 +47,53 @@ export class PdpComponent implements OnInit, OnDestroy {
         .subscribe(product => {
           console.log('product ', product)
           if (product) {
+            product.variantDtos.forEach(variant =>{
+              this.ssdSet.add(variant.ssd);
+              this.colorSet.add(variant.productColor);
+            })
             this._productPdpSub$.next(product)
           }
         })
-
     }
+
+
+    this.form.valueChanges
+      .pipe(
+        filter(value => value.ssd && value.color),
+        switchMap(value => {
+          return this.productPdp$
+            .pipe(
+              map(product => {
+                let variants = product?.variantDtos;
+
+                if (variants){
+                  for (let i = 0; i < variants?.length; i++) {
+                    if(variants[i].ssd === value.ssd && variants[i].productColor === value.color){
+                      console.log('price', variants[i].price);
+                      console.log('variantPrice', variants[i]);
+                      this._pricepSub$.next(variants[i].price);
+                      break;
+                    }else {
+                      this._pricepSub$.next(undefined);
+                    }
+                  }
+                }
+
+                return value;
+              }),
+
+            )
+        })
+      )
+      .subscribe(value => console.log('form', value));
+  }
+  addSsd(ssd: number):void {
+    this.form.controls['ssd'].setValue(ssd);
+  }
+
+  addColor(color: string):void{
+    this.form.controls['color'].setValue(color);
+
   }
 
   ngOnDestroy(): void {

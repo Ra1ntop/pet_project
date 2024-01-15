@@ -1,4 +1,7 @@
-<ng-container *ngIf="productPdp$ | async as product">
+<ng-container *ngIf="{
+product: productPdp$ | async,
+price: price$ | async
+ } as config">
   <div class="card-container">
     <div class="card-header">
 
@@ -12,9 +15,9 @@
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{{product.images.at(0)}}" class="middle_images" alt="...">
+              <img src="{{config.product?.images?.at(0)}}" class="middle_images" alt="...">
             </div>
-            <ng-container *ngFor="let image of product.images; let i = index">
+            <ng-container *ngFor="let image of config.product?.images; let i = index">
               <div class="carousel-item" *ngIf="i !== 0">
                 <img src="{{image}}" class="middle_images" alt="...">
               </div>
@@ -28,13 +31,29 @@
       </div>
       <div class="middle_text">
         <div class="middle_text_head_inner">
-          <h1>{{ product.name }}</h1>
+          <h1>{{ config.product?.name }}</h1>
         </div>
         <div class="middle_text_middle_inner">
-
+          <div class="ssd_capacity">
+            <h3>SSD:</h3>
+            <ng-container *ngFor="let ssd of ssdSet">
+              <button (click)="addSsd(ssd)" type="button" class="btn btn-outline-secondary">{{ssd}}</button>
+            </ng-container>
+          </div>
+          <div class="product_color_choise">
+            <h3>Color:</h3>
+            <ng-container *ngFor="let color of colorSet">
+              <button (click)="addColor(color)" type="button" class="btn btn-outline-secondary">{{color}}</button>
+            </ng-container>
+          </div>
         </div>
-        <div class="middle_text_footer_inner">
-          <p>{{product.description}}</p>
+        <div class="middle_text_footer_inner" *ngIf="config.price">
+          <h3>Price</h3>
+          <button type="button" class="btn btn-outline-success">{{config.price}}</button>
+        </div>
+        <div class="middle_text_footer_inner" *ngIf="!config.price">
+          <h3>Price</h3>
+          <button type="button" class="btn btn-outline-success disabled">Buy</button>
         </div>
       </div>
     </div>
