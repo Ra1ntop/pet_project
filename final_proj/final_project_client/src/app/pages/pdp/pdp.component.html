@@ -1,6 +1,6 @@
 <ng-container *ngIf="{
 product: productPdp$ | async,
-price: price$ | async
+priceVariant: price$ | async
  } as config">
   <div class="card-container">
     <div class="card-header">
@@ -37,23 +37,37 @@ price: price$ | async
           <div class="ssd_capacity">
             <h3>SSD:</h3>
             <ng-container *ngFor="let ssd of ssdSet">
-              <button (click)="addSsd(ssd)" type="button" class="btn btn-outline-secondary">{{ssd}}</button>
+              <button
+                [class.btn-dark]="ssd === form.controls['ssd'].value"
+                [class.btn-outline-secondary]="ssd !== form.controls['ssd'].value"
+                (click)="addSsd(ssd)"
+                type="button"
+                class="btn">{{ssd}}</button>
             </ng-container>
           </div>
           <div class="product_color_choise">
             <h3>Color:</h3>
             <ng-container *ngFor="let color of colorSet">
-              <button (click)="addColor(color)" type="button" class="btn btn-outline-secondary">{{color}}</button>
+              <button
+                [class.btn-dark]="color === form.controls['color'].value"
+                [class.btn-outline-secondary]="color !== form.controls['color'].value"
+                (click)="addColor(color)"
+                type="button"
+                class="btn">{{color}}</button>
             </ng-container>
           </div>
         </div>
-        <div class="middle_text_footer_inner" *ngIf="config.price">
+        <div class="middle_text_footer_inner" *ngIf="config.priceVariant?.price">
+
           <h3>Price</h3>
-          <button type="button" class="btn btn-outline-success">{{config.price}}</button>
+          <button
+            (click)="shopNow(config.priceVariant?.productId)"
+            type="button" class="btn btn-outline-success">{{config.priceVariant?.price}}</button>
         </div>
-        <div class="middle_text_footer_inner" *ngIf="!config.price">
+        <div class="middle_text_footer_inner" *ngIf="!config.priceVariant?.price">
           <h3>Price</h3>
-          <button type="button" class="btn btn-outline-success disabled">Buy</button>
+          <button
+          type="button" class="btn btn-outline-success disabled">Buy</button>
         </div>
       </div>
     </div>
