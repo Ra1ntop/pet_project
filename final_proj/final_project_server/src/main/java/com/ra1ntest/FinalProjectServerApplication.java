@@ -8,7 +8,6 @@ public class FinalProjectServerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FinalProjectServerApplication.class, args);
-
     }
 
 }
