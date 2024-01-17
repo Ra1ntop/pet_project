@@ -27,7 +27,7 @@ public class ProductController {
     }
 
     @GetMapping("/pdp/{productId}")
-    public ResponseEntity<ProductPdpDto> findAllVariantsByProduct(@PathVariable Long productId) {
+    public ResponseEntity<ProductPdpDto> findAllVariantsByProduct(@PathVariable("productId") Long productId) {
         if (!productPdpFacade.isProductInProductIdExist(productId)) {
             return ResponseEntity.badRequest().build();
         }
