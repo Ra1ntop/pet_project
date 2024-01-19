@@ -1,6 +1,5 @@
-package com.ra1ntest.config.filter;
+package com.ra1ntest.config.security;
 
-import com.ra1ntest.config.security.JwtService;
 import com.ra1ntest.persistance.entity.token.Token;
 import com.ra1ntest.repository.token.TokenRepository;
 import com.ra1ntest.util.SecurityUtil;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;

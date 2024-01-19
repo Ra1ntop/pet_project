@@ -1,5 +1,7 @@
 package com.ra1ntest;
 
+import com.ra1ntest.persistance.entity.user.Admin;
+import com.ra1ntest.repository.user.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,15 +14,22 @@ public class FinalProjectServerApplication {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AdminRepository adminRepository;
     public static void main(String[] args) {
         SpringApplication.run(FinalProjectServerApplication.class, args);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+
+    //    @EventListener(ApplicationReadyEvent.class)
     public void run() {
-//        String password = "Test123!";
-//        String hash = passwordEncoder.encode(password);
-//        System.out.println("hash = " + hash);
+        Admin admin = new Admin();
+        admin.setLogin("admin@rains.com");
+        admin.setPassword(passwordEncoder.encode("password"));
+        admin.setFirstName("Test admin First Name");
+        admin.setLastName("Test admin Last Name");
+        adminRepository.save(admin);
     }
 
 }
