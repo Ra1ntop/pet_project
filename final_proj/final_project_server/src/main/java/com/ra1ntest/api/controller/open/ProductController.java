@@ -1,4 +1,4 @@
-package com.ra1ntest.api.controller;
+package com.ra1ntest.api.controller.open;
 
 import com.ra1ntest.api.dto.response.product.ProductPdpDto;
 import com.ra1ntest.api.dto.response.product.ProductPlpDto;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/open/products")
 @AllArgsConstructor
 public class ProductController {
     private final ProductPlpFacade productPlpFacade;
