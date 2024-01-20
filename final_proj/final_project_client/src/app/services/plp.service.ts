@@ -8,7 +8,7 @@ import {ProductPlp} from "../models/product-plp";
   providedIn: 'root'
 })
 export class PlpService {
-  private _apiUrl: string = `${httpConfig.apiUrl}/products/plp`;
+  private _apiUrl: string = `${httpConfig.apiOpenProductsUrl}/plp`;
 
   constructor(private _http: HttpClient) {
   }

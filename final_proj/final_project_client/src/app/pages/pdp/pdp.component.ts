@@ -6,6 +6,7 @@ import { PriceVariant } from "../../models/priceVariant";
 import { BehaviorSubject, Observable, Subscription, filter, map, switchMap } from "rxjs";
 import { AsyncPipe, JsonPipe, NgForOf, NgIf } from "@angular/common";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-pdp',
@@ -35,13 +36,15 @@ export class PdpComponent implements OnInit, OnDestroy {
 
   readonly productPdp$: Observable<ProductPdp | undefined> = this._productPdpSub$.asObservable();
   readonly price$: Observable<PriceVariant | undefined> = this._pricepSub$.asObservable();
+  readonly isLoginIn$: Observable<boolean> = this._authService.isLoginIn();
 
   form: FormGroup = this._fb.group({
     ssd: new FormControl(null, [Validators.required]),
     color: new FormControl(null, [Validators.required]),
   })
 
-  constructor(private _router: Router, private _fb: FormBuilder , private _pdpService: PdpService) { }
+  constructor(private _router: Router, private _fb: FormBuilder, private _pdpService: PdpService, private _authService: AuthService) {
+  }
 
   ngOnInit(): void {
     let url = this._router.routerState.snapshot.url;

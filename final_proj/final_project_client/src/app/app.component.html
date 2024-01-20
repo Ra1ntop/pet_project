@@ -20,6 +20,12 @@
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button (click)="logout()" class="btn btn-primary me-md-2" type="button" *ngIf="isLoginIn$ | async">logout
+            </button>
+            <button (click)="login()" class="btn btn-primary" type="button" *ngIf="!(isLoginIn$ | async)">login</button>
+          </div>
         </ul>
       </div>
     </div>
