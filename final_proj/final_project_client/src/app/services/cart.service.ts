@@ -1,17 +1,25 @@
 import {httpConfig} from "../app.config";
-import {Injectable} from "@angular/core";
+import {Injectable, OnDestroy, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {AuthService} from "./auth.service";
+import {ProductPdp} from "../models/product-pdp";
+import {ProductVariant} from "../models/product-variant";
+import {ProductPlp} from "../models/product-plp";
 
 @Injectable({
   providedIn: "root"
 })
-export class CartService {
+export class CartService implements OnInit, OnDestroy {
 
   private _apiUrl: string = `${httpConfig.apiCustomerUrl}/cart`;
+  private _subscription$ = new Subscription();
 
   constructor(private _http: HttpClient, private _authService: AuthService) {
+  }
+
+  ngOnInit(): void {
+
   }
 
   addToCart(productVariantId: number, quantity: number = 1): Observable<string> {
@@ -24,5 +32,9 @@ export class CartService {
     return this._http.post<string>(this._apiUrl, null, {params, headers});
   }
 
+
+  ngOnDestroy(): void {
+    this._subscription$.unsubscribe();
+  }
 
 }

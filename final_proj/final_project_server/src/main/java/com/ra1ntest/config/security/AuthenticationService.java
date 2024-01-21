@@ -34,6 +34,9 @@ public class AuthenticationService {
         Customer customer = new Customer();
         customer.setLogin(registerDto.getEmail());
         customer.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        customer.setFirstName(registerDto.getFirstName());
+        customer.setLastName(registerDto.getLastName());
+        customer.setAge(registerDto.getAge());
         customer = customerRepository.save(customer);
         String jwttoken = jwtService.generateToken(customer);
         Token token = new Token();
