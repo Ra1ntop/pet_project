@@ -3,6 +3,8 @@ import {Injectable, OnDestroy, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
 import {AuthService} from "./auth.service";
+import {ProductPlp} from "../models/product-plp";
+import {CartItems} from "../models/cart-items";
 
 @Injectable({
   providedIn: "root"
@@ -17,6 +19,13 @@ export class CartService implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+  }
+
+  loadProducts(): Observable<CartItems[]> {
+    let token = this._authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`)
+    return this._http.get<CartItems[]>(this._apiUrl, {headers});
   }
 
   addToCart(productVariantId: number, quantity: number = 1): Observable<string> {

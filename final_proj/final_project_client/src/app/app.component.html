@@ -22,8 +22,12 @@
           </li>
 
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button (click)="logout()" class="btn btn-primary me-md-2" type="button" *ngIf="isLoginIn$ | async">logout
-            </button>
+            <ng-container *ngIf="isLoginIn$ | async">
+              <button (click)="logout()" class="btn btn-primary me-md-2" type="button">logout
+              </button>
+              <a routerLink="/cart">Cart</a>
+            </ng-container>
+
             <button (click)="login()" class="btn btn-primary" type="button" *ngIf="!(isLoginIn$ | async)">login</button>
           </div>
         </ul>

@@ -5,11 +5,22 @@
     <h2>Корзина</h2>
   </div>
 
-  <div class="cart-items">
-    <!-- Отображение товаров в корзине -->
-    <div class="cart-item">
+  <ng-container *ngIf="products$ | async as products">
+    <div class="cart-items">
+      <!-- Отображение товаров в корзине -->
+      <div class="cart-item" *ngFor="let product of products">
+        <div class="myCard-body">
+          <h5 class="myCard-title">{{ product?.name }}</h5>
+          <img src="{{product?.image}}" class="card-img-top car_container_image" alt="...">
+          <p class="myCard-text">ssd: {{product?.ssd}}</p>
+          <p class="myCard-text">color: {{product?.color}}</p>
+          <p class="myCard-text">price: {{product?.price}}</p>
+          <a href="#" class="btn btn-primary rounded-pill">Придбати</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </ng-container>
+
 
   <div class="cart-total">
     Всего: $

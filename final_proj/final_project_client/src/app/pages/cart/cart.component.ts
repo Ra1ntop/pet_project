@@ -1,18 +1,18 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {BehaviorSubject, config, Observable, Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {CartService} from "../../services/cart.service";
-import {ProductPdp} from "../../models/product-pdp";
-import {ProductPlp} from "../../models/product-plp";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {CartItems} from "../../models/cart-items";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf
+    NgIf,
+    NgForOf
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -20,6 +20,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 export class CartComponent implements OnInit, OnDestroy {
 
   private _sub$ = new Subscription();
+  products$: Observable<CartItems[]> = this._cartService.loadProducts();
 
 
   constructor(private _authService: AuthService, private _router: Router, private _cartService: CartService) {
