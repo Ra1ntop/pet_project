@@ -7,12 +7,11 @@
 
   <div class="cart-items">
     <!-- Отображение товаров в корзине -->
-    <div *ngFor="let item of cartItems; let i = index" class="cart-item" [@itemAnimation]="i">
-      {{ item.name }} - ${{ item.price }}
+    <div class="cart-item">
     </div>
   </div>
 
   <div class="cart-total">
-    Всего: ${{ getTotal() }}
+    Всего: $
   </div>
 </div>

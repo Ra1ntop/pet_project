@@ -26,15 +26,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
 
-  cartItems: { name: string; price: number }[] = [];
-
-  addItemToCart(item: { name: string; price: number }) {
-    this.cartItems.push(item);
-  }
-
-  getTotal() {
-    return this.cartItems.reduce((total, item) => total + item.price, 0);
-  }
 
   ngOnInit(): void {
     this._sub$.add(
@@ -53,6 +44,4 @@ export class CartComponent implements OnInit, OnDestroy {
     this._sub$.unsubscribe();
   }
 
-
-  protected readonly config = config;
 }

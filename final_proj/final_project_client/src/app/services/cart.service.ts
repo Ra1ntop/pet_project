@@ -3,9 +3,6 @@ import {Injectable, OnDestroy, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, Subscription} from "rxjs";
 import {AuthService} from "./auth.service";
-import {ProductPdp} from "../models/product-pdp";
-import {ProductVariant} from "../models/product-variant";
-import {ProductPlp} from "../models/product-plp";
 
 @Injectable({
   providedIn: "root"

@@ -18,9 +18,9 @@ public class CartController {
     private final CartFacade cartFacade;
 
     @PostMapping("")
-    public ResponseEntity<String> createOrUpdateCart(@RequestParam Long productVariantId, @RequestParam(defaultValue = "1") int quantity) {
+    public ResponseEntity createOrUpdateCart(@RequestParam Long productVariantId, @RequestParam(defaultValue = "1") int quantity) {
         cartFacade.addProductToCart(productVariantId, quantity);
-        return ResponseEntity.ok("Cart was created or updated");
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
