@@ -20,8 +20,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthDto> register(@RequestBody RegisterDto registerDto) {
-        AuthDto authDto = null;
-        System.out.println("registerDto: " + registerDto.toString());
         return ResponseEntity.ok(authenticationService.register(registerDto));
     }
 
