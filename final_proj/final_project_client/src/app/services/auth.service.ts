@@ -40,6 +40,15 @@ export class AuthService {
     this._isLoginInSub$.next(isLoginIn);
   }
 
+  getToken(): string | null {
+    let token = localStorage.getItem('token');
+    if (token) {
+      let authData: AuthData = JSON.parse(token);
+      return authData.token;
+    }
+    return null;
+  }
+
   isLoginIn(): Observable<boolean> {
     return this._isLoginInSub$.asObservable()
       .pipe(

@@ -20,4 +20,8 @@ public final class SecurityUtil {
     public static void setAu(UsernamePasswordAuthenticationToken updateToken) {
         SecurityContextHolder.getContext().setAuthentication(updateToken);
     }
+
+    public static String getUserName() {
+        return getAuthentication().getName();
+    }
 }

@@ -14,5 +14,6 @@ export const httpConfig = {
   apiUrl: 'http://localhost:8080/api',
   apiOpenUrl: 'http://localhost:8080/api/opne',
   apiOpenProductsUrl: 'http://localhost:8080/api/open/products',
+  apiCustomerUrl: 'http://localhost:8080/api/customer',
 
 }

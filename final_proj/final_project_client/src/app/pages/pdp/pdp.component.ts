@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, Subscription, filter, map, switchMap } fro
 import { AsyncPipe, JsonPipe, NgForOf, NgIf } from "@angular/common";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-pdp',
@@ -43,7 +44,12 @@ export class PdpComponent implements OnInit, OnDestroy {
     color: new FormControl(null, [Validators.required]),
   })
 
-  constructor(private _router: Router, private _fb: FormBuilder, private _pdpService: PdpService, private _authService: AuthService) {
+  constructor(
+    private _router: Router,
+    private _fb: FormBuilder,
+    private _pdpService: PdpService,
+    private _authService: AuthService,
+    private _cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -110,7 +116,16 @@ export class PdpComponent implements OnInit, OnDestroy {
     this.form.controls['color'].setValue(color);
   }
   shopNow(productId: number | undefined){
-    console.log(productId);
+    if (productId) {
+      console.log(productId);
+      this._subscription.add(
+        this._cartService.addToCart(productId)
+          .subscribe(
+            () => this._router.navigateByUrl('/cart'),
+            (er) => console.log('error: ', er)
+          )
+      )
+    }
   }
   ngOnDestroy(): void {
     this._subscription.unsubscribe();

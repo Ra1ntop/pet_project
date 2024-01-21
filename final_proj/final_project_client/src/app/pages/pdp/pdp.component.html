@@ -58,11 +58,22 @@ priceVariant: price$ | async
           </div>
         </div>
         <div class="middle_text_footer_inner" *ngIf="config.priceVariant?.price">
-
           <h3>Price</h3>
           <button
+            *ngIf="!(isLoginIn$ | async)"
+            disabled
             (click)="shopNow(config.priceVariant?.productId)"
-            type="button" class="btn btn-outline-success">{{config.priceVariant?.price}}</button>
+            type="button"
+            class="btn btn-outline-success">
+            {{config.priceVariant?.price}}
+          </button>
+          <button
+            *ngIf="(isLoginIn$ | async)"
+            (click)="shopNow(config.priceVariant?.productId)"
+            type="button"
+            class="btn btn-outline-success">
+            {{config.priceVariant?.price}}
+          </button>
         </div>
         <div class="middle_text_footer_inner" *ngIf="!config.priceVariant?.price">
           <h3>Price</h3>
