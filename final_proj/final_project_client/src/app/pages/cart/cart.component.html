@@ -1,1 +1,18 @@
-<p>cart works!</p>
+<!-- cart.component.html -->
+
+<div class="cart-container">
+  <div class="cart-header">
+    <h2>Корзина</h2>
+  </div>
+
+  <div class="cart-items">
+    <!-- Отображение товаров в корзине -->
+    <div *ngFor="let item of cartItems; let i = index" class="cart-item" [@itemAnimation]="i">
+      {{ item.name }} - ${{ item.price }}
+    </div>
+  </div>
+
+  <div class="cart-total">
+    Всего: ${{ getTotal() }}
+  </div>
+</div>
