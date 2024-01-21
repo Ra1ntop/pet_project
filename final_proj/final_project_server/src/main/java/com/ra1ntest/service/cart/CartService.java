@@ -1,5 +1,6 @@
 package com.ra1ntest.service.cart;
 
+import com.ra1ntest.api.dto.response.cart.CartItemsDto;
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.cart.CartEntry;
 
@@ -12,5 +13,8 @@ public interface CartService {
 
     Cart getActive();
 
+    Cart findCart();
+
     List<CartEntry> getEntriesByCart(Cart cart);
+
 }

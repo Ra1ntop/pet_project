@@ -1,6 +1,9 @@
 package com.ra1ntest.facade.cart;
 
 import com.ra1ntest.api.dto.response.cart.CartDto;
+import com.ra1ntest.api.dto.response.cart.CartItemsDto;
+
+import java.util.List;
 
 public interface CartFacade {
 
@@ -9,4 +12,6 @@ public interface CartFacade {
     void deleteProductFromCart(Long productVariantId);
 
     CartDto getActive();
+
+    List<CartItemsDto> findItemsByCart();
 }
