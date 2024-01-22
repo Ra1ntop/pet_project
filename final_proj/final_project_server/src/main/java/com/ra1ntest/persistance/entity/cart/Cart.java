@@ -1,9 +1,11 @@
 package com.ra1ntest.persistance.entity.cart;
 
 import com.ra1ntest.persistance.entity.BaseEntity;
+import com.ra1ntest.persistance.entity.order.Order;
 import com.ra1ntest.persistance.entity.user.Customer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +21,9 @@ public class Cart extends BaseEntity {
     private Customer customer;
 
     private Boolean active;
+
+    @OneToOne
+    private Order order;
 
     public Cart() {
         this.active = true;

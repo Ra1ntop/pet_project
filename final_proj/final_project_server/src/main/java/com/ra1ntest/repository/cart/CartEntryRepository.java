@@ -14,5 +14,7 @@ public interface CartEntryRepository extends BaseRepository<CartEntry> {
 
     List<CartEntry> findByCart(Cart cart);
 
-    Optional<CartEntry> findByProductVariant(ProductVariant productVariant);
+    List<CartEntry> findAllByCartId(Long cartid);
+
+    Optional<CartEntry> findByProductVariantAndCartId(ProductVariant productVariant, Long id);
 }

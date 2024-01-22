@@ -8,6 +8,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class CartEntry extends BaseEntity {
     @ManyToOne
     private Cart cart;
 
-    @OneToOne
+    @ManyToOne
     private ProductVariant productVariant;
 
 

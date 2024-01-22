@@ -47,26 +47,48 @@ public class CartServiceImpl implements CartService {
             cart = carts.get();
         }
         cart = cartRepository.save(cart);
-
+        final Cart cart1 = cart;
 
         ProductVariant productVariant = productVariantRepository
                 .findById(productVariantId)
                 .orElseThrow(() -> new EntityNotFoundException("Product not founded"));
-        CartEntry cartEntry = null;
-        Optional<CartEntry> optionalCartEntry = cartEntryRepository.findByProductVariant(productVariant);
-        if (optionalCartEntry.isEmpty()) {
+        System.out.println("cart.getId() = " + cart.getId());
+        List<CartEntry> allByCartId = cartEntryRepository.findAllByCartId(cart.getId());
+        if (allByCartId.isEmpty()) {
+            CartEntry cartEntry = null;
             cartEntry = new CartEntry();
-            cartEntry.setCart(cart);
+            cartEntry.setCart(cart1);
             cartEntry.setProductVariant(productVariant);
             cartEntry.setQuantity(quantity);
-            cartEntry = cartEntryRepository.save(cartEntry);
-        } else {
-            cartEntry = optionalCartEntry.get();
-            int currentQuantity = cartEntry.getQuantity();
-            currentQuantity = currentQuantity + quantity;
-            cartEntry.setQuantity(currentQuantity);
+            System.out.println("cartEntry = " + cartEntry);
             cartEntry = cartEntryRepository.save(cartEntry);
         }
+        if (!allByCartId.isEmpty()) {
+            Optional<CartEntry> optionalCartEntry = cartEntryRepository.findByProductVariantAndCartId(productVariant, cart.getId());
+            System.out.println("cart = " + cart.getId());
+//                if (optionalCartEntry.get().getProductVariant() == productVariant){
+//                    System.out.println("equals");
+//                    System.out.println("productVariant = " + productVariant.getId());
+//                    System.out.println("optionalCartEntry = " + optionalCartEntry.get());
+//                }
+            CartEntry cartEntry = null;
+            if (optionalCartEntry.isEmpty()) {
+                cartEntry = new CartEntry();
+                cartEntry.setCart(cart1);
+                cartEntry.setProductVariant(productVariant);
+                cartEntry.setQuantity(quantity);
+                cartEntry = cartEntryRepository.save(cartEntry);
+                return;
+            } else {
+                cartEntry = optionalCartEntry.get();
+                int currentQuantity = cartEntry.getQuantity();
+                currentQuantity = currentQuantity + quantity;
+                cartEntry.setQuantity(currentQuantity);
+                cartEntry = cartEntryRepository.save(cartEntry);
+                return;
+            }
+        }
+
     }
 
     @Override
