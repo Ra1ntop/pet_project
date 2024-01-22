@@ -17,6 +17,7 @@ import java.util.Set;
 @Setter
 public class CartItemsDto extends ResponseDto {
     private String name;
+    private Integer quantity;
     private String image;
     private String price;
     private Integer ssd;
@@ -24,6 +25,7 @@ public class CartItemsDto extends ResponseDto {
 
     public CartItemsDto(CartEntry product) {
         setId(product.getProductVariant().getId());
+        setQuantity(product.getQuantity());
         setName(product.getProductVariant().getProduct().getName());
         setSsd(product.getProductVariant().getSsd());
         setColor(product.getProductVariant().getProductColor().getColor());

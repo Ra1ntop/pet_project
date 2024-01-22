@@ -11,6 +11,7 @@
       <div class="cart-item" *ngFor="let product of products">
         <div class="myCard-body">
           <h5 class="myCard-title">{{ product?.name }}</h5>
+          <h5 class="myCard-title">{{ product?.quantity }}</h5>
           <img src="{{product?.image}}" class="card-img-top car_container_image" alt="...">
           <p class="myCard-text">ssd: {{product?.ssd}}</p>
           <p class="myCard-text">color: {{product?.color}}</p>
