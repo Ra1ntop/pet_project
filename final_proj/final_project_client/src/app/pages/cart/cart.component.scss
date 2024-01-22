@@ -1,48 +1,55 @@
-/* cart.component.css */
 
-.cart-container {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.mycart-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
-.cart-header {
-  text-align: center;
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
 }
 
-.cart-items {
-  margin-top: 10px;
+.mycart-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.cart-item {
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.card_body_items {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 150px;
 }
 
-.cart-total {
-  margin-top: 10px;
-  font-weight: bold;
-  text-align: right;
+.card_body_chose_capacity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Анимация для товаров в корзине */
-@keyframes item-enter {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.card_body_chose_capacity_inner_button {
+  border: 0px;
+  background-color: white;
+  margin: 3px;
 }
 
-.item-enter {
-  animation: item-enter 300ms ease-out;
+.card_body_chose_capacity_inner {
+  display: flex;
+  flex-direction: row;
+}
+
+.myCard-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.car_container_image {
+  width: 200px;
+  height: 200px;
 }

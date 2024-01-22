@@ -5,4 +5,5 @@ export interface CartItems {
   price: string;
   ssd: number;
   color: string;
+  productVariantId: number;
 }

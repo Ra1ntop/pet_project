@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CartFacade {
 
+    void updateQuantityInCart(Long productVariantId, int quantity);
     void addProductToCart(Long productVariantId, int quantity);
 
     void deleteProductFromCart(Long productVariantId);

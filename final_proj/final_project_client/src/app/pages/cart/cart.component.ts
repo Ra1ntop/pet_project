@@ -26,7 +26,29 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private _authService: AuthService, private _router: Router, private _cartService: CartService) {
   }
 
+  loadPrice(price: string, quantity: number): number {
+    console.log(price);
+    let totalPrice: number = quantity * parseFloat(price);
+    console.log('totalPrice', totalPrice)
+    return totalPrice;
+  }
 
+  increaseQuantity(productVariantId: number): void {
+    this.updateQuantity(productVariantId, 1);
+  }
+
+  decreaseQuantity(productVariantId: number): void {
+    this.updateQuantity(productVariantId, -1);
+  }
+
+  private updateQuantity(productVariantId: number, quantityChange: number): void {
+    this._sub$.add(
+      this._cartService.updateAddToCart(productVariantId, quantityChange)
+        .subscribe(() => {
+          this.products$ = this._cartService.loadProducts();
+        })
+    );
+  }
 
   ngOnInit(): void {
     this._sub$.add(

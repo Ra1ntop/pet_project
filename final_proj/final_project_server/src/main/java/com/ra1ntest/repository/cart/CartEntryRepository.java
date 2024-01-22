@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CartEntryRepository extends BaseRepository<CartEntry> {
 
+    CartEntry findByProductVariantIdAndCartId(Long productVariantId, Long cartId);
     List<CartEntry> findByCart(Cart cart);
 
     List<CartEntry> findAllByCartId(Long cartid);

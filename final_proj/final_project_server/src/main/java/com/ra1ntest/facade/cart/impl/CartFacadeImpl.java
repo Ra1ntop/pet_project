@@ -2,10 +2,7 @@ package com.ra1ntest.facade.cart.impl;
 
 import com.ra1ntest.api.dto.response.cart.CartDto;
 import com.ra1ntest.api.dto.response.cart.CartItemsDto;
-import com.ra1ntest.api.dto.response.product.ProductPlpDto;
 import com.ra1ntest.facade.cart.CartFacade;
-import com.ra1ntest.persistance.entity.cart.CartEntry;
-import com.ra1ntest.persistance.entity.product.ProductVariant;
 import com.ra1ntest.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +14,25 @@ import java.util.List;
 public class CartFacadeImpl implements CartFacade {
 
     private final CartService cartService;
+
+    @Override
+    public void updateQuantityInCart(Long productVariantId, int quantity) {
+        Integer productQuantity = cartService.findProductQuantity(productVariantId);
+        if (productQuantity != null) {
+            if (quantity < 0) {
+                if (cartService.findProductQuantity(productVariantId) == 1) {
+                    cartService.deleteProductFromCart(productVariantId);
+                }
+                if (productQuantity > 1) {
+                    cartService.addProductToCart(productVariantId, quantity);
+                }
+            } else {
+                addProductToCart(productVariantId, quantity);
+            }
+
+        }
+
+    }
 
     @Override
     public void addProductToCart(Long productVariantId, int quantity) {

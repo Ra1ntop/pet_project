@@ -1,7 +1,6 @@
 package com.ra1ntest.service.cart.impl;
 
-import com.ra1ntest.api.dto.response.cart.CartItemsDto;
-import com.ra1ntest.api.dto.response.product.ProductPlpDto;
+import com.ra1ntest.exception.CartEntryNotFoundException;
 import com.ra1ntest.exception.EntityNotFoundException;
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.cart.CartEntry;
@@ -17,7 +16,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +45,6 @@ public class CartServiceImpl implements CartService {
             cart = carts.get();
         }
         cart = cartRepository.save(cart);
-        final Cart cart1 = cart;
 
         ProductVariant productVariant = productVariantRepository
                 .findById(productVariantId)
@@ -57,7 +54,7 @@ public class CartServiceImpl implements CartService {
         if (allByCartId.isEmpty()) {
             CartEntry cartEntry = null;
             cartEntry = new CartEntry();
-            cartEntry.setCart(cart1);
+            cartEntry.setCart(cart);
             cartEntry.setProductVariant(productVariant);
             cartEntry.setQuantity(quantity);
             System.out.println("cartEntry = " + cartEntry);
@@ -66,15 +63,10 @@ public class CartServiceImpl implements CartService {
         if (!allByCartId.isEmpty()) {
             Optional<CartEntry> optionalCartEntry = cartEntryRepository.findByProductVariantAndCartId(productVariant, cart.getId());
             System.out.println("cart = " + cart.getId());
-//                if (optionalCartEntry.get().getProductVariant() == productVariant){
-//                    System.out.println("equals");
-//                    System.out.println("productVariant = " + productVariant.getId());
-//                    System.out.println("optionalCartEntry = " + optionalCartEntry.get());
-//                }
             CartEntry cartEntry = null;
             if (optionalCartEntry.isEmpty()) {
                 cartEntry = new CartEntry();
-                cartEntry.setCart(cart1);
+                cartEntry.setCart(cart);
                 cartEntry.setProductVariant(productVariant);
                 cartEntry.setQuantity(quantity);
                 cartEntry = cartEntryRepository.save(cartEntry);
@@ -92,7 +84,52 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public Integer findProductQuantity(Long productVariantId) {
+        CartEntry cartEntry = cartEntryRepository.findByProductVariantIdAndCartId(productVariantId, getCart().getId());
+        if (cartEntry != null) {
+            return cartEntry.getQuantity();
+        }
+        throw new CartEntryNotFoundException("cartEntryRepository return null");
+    }
+
+    private Cart getCart() {
+        String userName = SecurityUtil.getUserName();
+        System.out.println("userName = " + userName);
+        Customer customer = customerRepository
+                .findByLogin(userName)
+                .orElseThrow(() -> new EntityNotFoundException("User not founded"));
+        Cart cart = null;
+        Optional<Cart> carts = cartRepository.findByCustomerAndActiveTrue(customer);
+        if (carts.isEmpty()) {
+            cart = new Cart();
+            cart.setCustomer(customer);
+        } else {
+            cart = carts.get();
+        }
+        cart = cartRepository.save(cart);
+        return cart;
+    }
+
+    @Override
     public void deleteProductFromCart(Long productVariantId) {
+        Cart cart = getCart();
+        ProductVariant productVariant = productVariantRepository
+                .findById(productVariantId)
+                .orElseThrow(() -> new EntityNotFoundException("Product not founded"));
+        System.out.println("cart.getId() = " + cart.getId());
+        List<CartEntry> allByCartId = cartEntryRepository.findAllByCartId(cart.getId());
+        if (allByCartId.isEmpty()) {
+        }
+        if (!allByCartId.isEmpty()) {
+            Optional<CartEntry> optionalCartEntry = cartEntryRepository.findByProductVariantAndCartId(productVariant, cart.getId());
+            System.out.println("cart = " + cart.getId());
+            if (optionalCartEntry.isEmpty()) {
+            } else {
+                Long id = cartEntryRepository.findById(optionalCartEntry.get().getId()).get().getId();
+                cartEntryRepository.deleteById(id);
+            }
+        }
+
 
     }
 

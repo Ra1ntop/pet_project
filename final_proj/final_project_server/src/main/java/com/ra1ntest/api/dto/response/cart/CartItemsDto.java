@@ -3,14 +3,11 @@ package com.ra1ntest.api.dto.response.cart;
 import com.ra1ntest.api.dto.response.ResponseDto;
 import com.ra1ntest.exception.NonValidFieldDataException;
 import com.ra1ntest.persistance.entity.cart.CartEntry;
-import com.ra1ntest.persistance.entity.product.Product;
 import com.ra1ntest.persistance.entity.product.ProductImage;
-import com.ra1ntest.persistance.entity.product.ProductVariant;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,6 +19,7 @@ public class CartItemsDto extends ResponseDto {
     private String price;
     private Integer ssd;
     private String color;
+    private Long productVariantId;
 
     public CartItemsDto(CartEntry product) {
         setId(product.getProductVariant().getId());
@@ -30,6 +28,7 @@ public class CartItemsDto extends ResponseDto {
         setSsd(product.getProductVariant().getSsd());
         setColor(product.getProductVariant().getProductColor().getColor());
         setPrice(String.valueOf(product.getProductVariant().getPrice()));
+        setProductVariantId(product.getProductVariant().getId());
         Set<ProductImage> images = product.getProductVariant().getProduct().getProductImages();
         if (CollectionUtils.isNotEmpty(images)) {
             ProductImage productImage = images
