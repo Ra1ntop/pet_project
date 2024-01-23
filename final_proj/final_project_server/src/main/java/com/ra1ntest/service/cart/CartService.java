@@ -18,8 +18,7 @@ public interface CartService {
 
     Cart getCart();
 
-    Cart findCart();
-
+    List<Cart> findCart();
     List<CartEntry> getEntriesByCart(Cart cart);
 
 }

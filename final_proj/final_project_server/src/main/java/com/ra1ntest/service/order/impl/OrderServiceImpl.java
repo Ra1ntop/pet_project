@@ -37,6 +37,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findOrdersByCustomerId(Long id) {
+        List<Order> orders = orderRepository.findAllByCustomerId(id);
+        return orders;
+    }
+
+    @Override
     public void updateOrder() {
 
     }

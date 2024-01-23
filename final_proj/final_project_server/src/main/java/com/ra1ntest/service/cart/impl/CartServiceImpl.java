@@ -130,6 +130,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public List<Cart> findCart() {
+        String userName = SecurityUtil.getUserName();
+        System.out.println("userName = " + userName);
+        Customer customer = customerRepository
+                .findByLogin(userName)
+                .orElseThrow(() -> new EntityNotFoundException("User not founded"));
+        return cartRepository.findAllByCustomerIdAndActiveFalse(customer.getId());
+    }
+
+    @Override
     public void deleteProductFromCart(Long productVariantId) {
         Cart cart = getCart();
         ProductVariant productVariant = productVariantRepository
@@ -168,28 +178,9 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(cart);
     }
 
-    @Override
-    public Cart findCart() {
-        String userName = SecurityUtil.getUserName();
-        System.out.println("userName = " + userName);
-        Customer customer = customerRepository
-                .findByLogin(userName)
-                .orElseThrow(() -> new EntityNotFoundException("User not founded"));
-        Cart cart = null;
-        Optional<Cart> carts = cartRepository.findByCustomerAndActiveTrue(customer);
-        if (carts.isEmpty()) {
-            cart = new Cart();
-            cart.setCustomer(customer);
-        } else {
-            cart = carts.get();
-        }
-        cart = cartRepository.save(cart);
-        return cart;
-    }
 
     @Override
     public List<CartEntry> getEntriesByCart(Cart cart) {
-
         return cartEntryRepository.findByCart(cart);
     }
 }

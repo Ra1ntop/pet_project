@@ -13,5 +13,7 @@ public interface OrderService {
 
     List<Order> findOrdersByCart(Cart cart);
 
+    List<Order> findOrdersByCustomerId(Long id);
+
     void updateOrder();
 }

@@ -5,6 +5,7 @@ import com.ra1ntest.persistance.entity.user.Customer;
 import com.ra1ntest.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,5 +14,7 @@ public interface CartRepository extends BaseRepository<Cart> {
     Optional<Cart> findByCustomerAndActiveTrue(Customer customer);
 
     Optional<Cart> findAllByCustomer(Customer customer);
+
+    List<Cart> findAllByCustomerIdAndActiveFalse(Long customerId);
 
 }

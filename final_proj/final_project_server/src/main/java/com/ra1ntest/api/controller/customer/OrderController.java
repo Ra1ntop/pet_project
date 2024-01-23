@@ -17,8 +17,8 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> findAllVariantsByCustomer() {
-
-        return ResponseEntity.ok().build();
+        List<OrderDto> orderDtos = orderFacade.findOrders();
+        return ResponseEntity.ok(orderDtos);
     }
 
     @PostMapping()

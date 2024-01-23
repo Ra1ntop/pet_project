@@ -13,9 +13,9 @@ public enum PermissionType {
     ADMIN_DELETE("admin:delete"),
 
     CUSTOMER_CREATE("customer:create"),
-    CUSTOMER_READ("admin:read"),
-    CUSTOMER_UPDATE("admin:update"),
-    CUSTOMER_DELETE("admin:delete");
+    CUSTOMER_READ("customer:read"),
+    CUSTOMER_UPDATE("customer:update"),
+    CUSTOMER_DELETE("customer:delete");
 
     private final String permission;
 

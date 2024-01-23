@@ -55,7 +55,7 @@ public class CartFacadeImpl implements CartFacade {
     @Override
     public List<CartItemsDto> findItemsByCart() {
 
-        return cartService.getEntriesByCart(cartService.findCart()).stream()
-                .map(CartItemsDto::new).toList();
+        return cartService.getEntriesByCart(cartService.getCart()).stream()
+                .map(product -> new CartItemsDto(product)).toList();
     }
 }
