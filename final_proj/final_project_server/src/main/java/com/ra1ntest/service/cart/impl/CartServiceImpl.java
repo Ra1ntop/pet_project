@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,7 @@ public class CartServiceImpl implements CartService {
             System.out.println("cartEntry = " + cartEntry);
             cartEntry = cartEntryRepository.save(cartEntry);
         }
+
         if (!allByCartId.isEmpty()) {
             Optional<CartEntry> optionalCartEntry = cartEntryRepository.findByProductVariantAndCartId(productVariant, cart.getId());
             System.out.println("cart = " + cart.getId());
@@ -69,18 +71,33 @@ public class CartServiceImpl implements CartService {
                 cartEntry.setCart(cart);
                 cartEntry.setProductVariant(productVariant);
                 cartEntry.setQuantity(quantity);
+                BigDecimal productVariantPrice = productVariant.getPrice();
+                BigDecimal totalPriceOfProductVariant = productVariantPrice.multiply(BigDecimal.valueOf(quantity));
+                cartEntry.setPrice(totalPriceOfProductVariant);
                 cartEntry = cartEntryRepository.save(cartEntry);
-                return;
             } else {
                 cartEntry = optionalCartEntry.get();
                 int currentQuantity = cartEntry.getQuantity();
                 currentQuantity = currentQuantity + quantity;
                 cartEntry.setQuantity(currentQuantity);
+                BigDecimal productVariantPrice = productVariant.getPrice();
+                BigDecimal totalPriceOfProductVariant = productVariantPrice.multiply(BigDecimal.valueOf(currentQuantity));
+                cartEntry.setPrice(totalPriceOfProductVariant);
                 cartEntry = cartEntryRepository.save(cartEntry);
-                return;
             }
+
+            long total = calculateTotal(allByCartId).longValue();
+            cart.setTotalPrice(total);
+            cart = cartRepository.save(cart);
         }
 
+    }
+
+    private BigDecimal calculateTotal(List<CartEntry> cartEntries) {
+        return cartEntries.stream()
+                .map(CartEntry::getPrice) // Получаем все цены
+                .reduce(BigDecimal.ZERO,
+                        BigDecimal::add); // Складываем все цены
     }
 
     @Override

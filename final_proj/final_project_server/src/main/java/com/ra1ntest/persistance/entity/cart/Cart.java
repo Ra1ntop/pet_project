@@ -25,6 +25,8 @@ public class Cart extends BaseEntity {
     @OneToOne
     private Order order;
 
+    private Long totalPrice;
+
     public Cart() {
         this.active = true;
     }

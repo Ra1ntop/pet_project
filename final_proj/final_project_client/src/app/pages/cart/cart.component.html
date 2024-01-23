@@ -27,17 +27,17 @@
                         class="card_body_chose_capacity_inner_button">>
                 </button>
               </div>
-              <p class="myCard-text">Ціна: {{ loadPrice(product.price, product.quantity) }}</p>
+              <p class="myCard-text">Ціна: {{ product.price }}</p>
             </div>
             <a href="#" class="btn btn-primary rounded-pill">Придбати</a>
           </div>
         </div>
       </div>
+      <div class="cart-total">
+        Всего: {{products.at(1)?.totalPrice}}
+      </div>
     </ng-container>
 
 
-    <div class="cart-total">
-      Всего: $
-    </div>
   </div>
 </div>

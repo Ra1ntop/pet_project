@@ -6,9 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -24,6 +27,9 @@ public class CartEntry extends BaseEntity {
 
 
     private Integer quantity;
+
+    @Digits(integer = 8, fraction = 2)
+    private BigDecimal price;
 
     public CartEntry() {
         this.quantity = 1;

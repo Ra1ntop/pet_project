@@ -17,6 +17,7 @@ public class CartItemsDto extends ResponseDto {
     private Integer quantity;
     private String image;
     private String price;
+    private String totalPrice;
     private Integer ssd;
     private String color;
     private Long productVariantId;
@@ -27,7 +28,8 @@ public class CartItemsDto extends ResponseDto {
         setName(product.getProductVariant().getProduct().getName());
         setSsd(product.getProductVariant().getSsd());
         setColor(product.getProductVariant().getProductColor().getColor());
-        setPrice(String.valueOf(product.getProductVariant().getPrice()));
+        setPrice(String.valueOf(product.getPrice()));
+        setTotalPrice(String.valueOf(product.getCart().getTotalPrice()));
         setProductVariantId(product.getProductVariant().getId());
         Set<ProductImage> images = product.getProductVariant().getProduct().getProductImages();
         if (CollectionUtils.isNotEmpty(images)) {
