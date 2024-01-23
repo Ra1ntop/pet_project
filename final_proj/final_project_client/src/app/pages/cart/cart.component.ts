@@ -26,6 +26,14 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private _authService: AuthService, private _router: Router, private _cartService: CartService) {
   }
 
+  deleteProductFromCart(productVariantId: number) {
+    this._sub$.add(
+      this._cartService.deleteFromCart(productVariantId)
+        .subscribe(() => {
+          this.products$ = this._cartService.loadProducts();
+        })
+    );
+  }
 
   increaseQuantity(productVariantId: number): void {
     this.updateQuantity(productVariantId, 1);

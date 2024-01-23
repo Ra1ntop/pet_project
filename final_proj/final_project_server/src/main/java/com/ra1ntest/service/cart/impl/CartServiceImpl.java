@@ -58,6 +58,9 @@ public class CartServiceImpl implements CartService {
             cartEntry.setCart(cart);
             cartEntry.setProductVariant(productVariant);
             cartEntry.setQuantity(quantity);
+            BigDecimal productVariantPrice = productVariant.getPrice();
+            BigDecimal totalPriceOfProductVariant = productVariantPrice.multiply(BigDecimal.valueOf(quantity));
+            cartEntry.setPrice(totalPriceOfProductVariant);
             System.out.println("cartEntry = " + cartEntry);
             cartEntry = cartEntryRepository.save(cartEntry);
         }
@@ -86,10 +89,8 @@ public class CartServiceImpl implements CartService {
                 cartEntry = cartEntryRepository.save(cartEntry);
             }
 
-            long total = calculateTotal(allByCartId).longValue();
-            cart.setTotalPrice(total);
-            cart = cartRepository.save(cart);
         }
+        calculateAndSaveTotalPrice(cart);
 
     }
 
@@ -133,21 +134,26 @@ public class CartServiceImpl implements CartService {
         ProductVariant productVariant = productVariantRepository
                 .findById(productVariantId)
                 .orElseThrow(() -> new EntityNotFoundException("Product not founded"));
-        System.out.println("cart.getId() = " + cart.getId());
         List<CartEntry> allByCartId = cartEntryRepository.findAllByCartId(cart.getId());
-        if (allByCartId.isEmpty()) {
-        }
         if (!allByCartId.isEmpty()) {
             Optional<CartEntry> optionalCartEntry = cartEntryRepository.findByProductVariantAndCartId(productVariant, cart.getId());
-            System.out.println("cart = " + cart.getId());
             if (optionalCartEntry.isEmpty()) {
             } else {
                 Long id = cartEntryRepository.findById(optionalCartEntry.get().getId()).get().getId();
                 cartEntryRepository.deleteById(id);
             }
         }
+        calculateAndSaveTotalPrice(cart);
+    }
 
-
+    private void calculateAndSaveTotalPrice(Cart cart) {
+        System.out.println("CartServiceImpl.calculateAndSaveTotalPrice");
+        List<CartEntry> allByCartId2 = cartEntryRepository.findAllByCartId(cart.getId());
+        long total = calculateTotal(allByCartId2).longValue();
+        System.out.println(total);
+        cart.setTotalPrice(total);
+        System.out.println("total = " + total);
+        cart = cartRepository.save(cart);
     }
 
     @Override

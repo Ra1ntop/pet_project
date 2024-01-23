@@ -29,12 +29,14 @@
               </div>
               <p class="myCard-text">Ціна: {{ product.price }}</p>
             </div>
-            <a href="#" class="btn btn-primary rounded-pill">Придбати</a>
+            <button (click)="deleteProductFromCart(product.productVariantId)" class="btn btn-primary rounded-pill">
+              Видалити
+            </button>
           </div>
         </div>
       </div>
       <div class="cart-total">
-        Всего: {{products.at(1)?.totalPrice}}
+        Всего: {{products.at(0)?.totalPrice}}
       </div>
     </ng-container>
 

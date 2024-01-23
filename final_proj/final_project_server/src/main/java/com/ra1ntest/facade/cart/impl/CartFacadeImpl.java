@@ -5,6 +5,7 @@ import com.ra1ntest.api.dto.response.cart.CartItemsDto;
 import com.ra1ntest.facade.cart.CartFacade;
 import com.ra1ntest.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +42,9 @@ public class CartFacadeImpl implements CartFacade {
 
     @Override
     public void deleteProductFromCart(Long productVariantId) {
-
+        if (StringUtils.isNumeric(productVariantId.toString())) {
+            cartService.deleteProductFromCart(productVariantId);
+        }
     }
 
     @Override

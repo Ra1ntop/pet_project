@@ -20,6 +20,15 @@ export class CartService implements OnInit, OnDestroy {
 
   }
 
+  deleteFromCart(productVariantId: number): Observable<string> {
+    let token = this._authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`)
+    let params = new HttpParams();
+    params = params.set('productVariantId', productVariantId)
+    return this._http.delete<string>(this._apiUrl, {params, headers});
+  }
+
   loadProducts(): Observable<CartItems[]> {
     let token = this._authService.getToken();
     let headers = new HttpHeaders();
