@@ -110,7 +110,8 @@ public class CartServiceImpl implements CartService {
         throw new CartEntryNotFoundException("cartEntryRepository return null");
     }
 
-    private Cart getCart() {
+    @Override
+    public Cart getCart() {
         String userName = SecurityUtil.getUserName();
         System.out.println("userName = " + userName);
         Customer customer = customerRepository
@@ -159,6 +160,12 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getActive() {
         return null;
+    }
+
+    @Override
+    public void setDisable(Cart cart) {
+        cart.setActive(false);
+        cartRepository.save(cart);
     }
 
     @Override

@@ -14,6 +14,10 @@ public interface CartService {
 
     Cart getActive();
 
+    void setDisable(Cart cart);
+
+    Cart getCart();
+
     Cart findCart();
 
     List<CartEntry> getEntriesByCart(Cart cart);
