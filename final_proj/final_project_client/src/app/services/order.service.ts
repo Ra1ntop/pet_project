@@ -1,9 +1,8 @@
 import {Injectable, OnDestroy, OnInit} from "@angular/core";
 import {httpConfig} from "../app.config";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {AuthService} from "./auth.service";
 import {Observable, Subscription} from "rxjs";
-import {CartItems} from "../models/cart-items";
 import {OrderData} from "../models/order-data";
 
 @Injectable({
@@ -15,6 +14,7 @@ export class OrderService implements OnInit, OnDestroy {
 
 
   private _apiUrlOrder: string = `${httpConfig.apiCustomerUrl}/order`;
+  private _apiUrlOrderCancel: string = `${httpConfig.apiCustomerUrl}/order/cancel-order`;
 
   constructor(private _http: HttpClient, private _authService: AuthService) {
   }
@@ -24,6 +24,15 @@ export class OrderService implements OnInit, OnDestroy {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`)
     return this._http.get<OrderData[]>(this._apiUrlOrder, {headers});
+  }
+
+  cancelOrder(id: number): Observable<string> {
+    let token = this._authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`)
+    let params = new HttpParams();
+    params = params.set('orderId', id)
+    return this._http.put<string>(this._apiUrlOrderCancel, null, {params, headers});
   }
 
   ngOnInit(): void {

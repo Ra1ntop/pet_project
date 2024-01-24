@@ -10,5 +10,6 @@ import java.util.List;
 public interface OrderRepository extends BaseRepository<Order> {
     Order findByCartId(Long cartId);
 
+    Order findOrderById(Long Id);
     List<Order> findAllByCustomerId(Long customerId);
 }

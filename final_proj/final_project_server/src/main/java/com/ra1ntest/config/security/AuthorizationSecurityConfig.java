@@ -36,7 +36,7 @@ public class AuthorizationSecurityConfig {
                         .requestMatchers("/api/open/**", "/api/auth/**", "/swagger-ui/**", "v3/api-docs/**").permitAll()
                         .requestMatchers(GET, "/api/customer/", "/api/customer/cart/", "/api/customer/order/").hasAuthority(CUSTOMER_READ.name())
                         .requestMatchers(POST, "/api/customer/").hasAuthority(CUSTOMER_CREATE.name())
-                        .requestMatchers(PUT, "/api/customer/").hasAuthority(CUSTOMER_UPDATE.name())
+                        .requestMatchers(PUT, "/api/customer/", "/api/customer/order/cancel-order/", "/api/customer/order/").hasAuthority(CUSTOMER_UPDATE.name())
                         .requestMatchers(DELETE, "/api/customer/").hasAuthority(CUSTOMER_DELETE.name())
 
                         .requestMatchers(GET, "/api/admin/").hasAuthority(ADMIN_READ.name())

@@ -1,8 +1,9 @@
 package com.ra1ntest.service.order.impl;
 
+import com.ra1ntest.exception.EntityNotFoundException;
 import com.ra1ntest.persistance.entity.cart.Cart;
-import com.ra1ntest.persistance.entity.cart.CartEntry;
 import com.ra1ntest.persistance.entity.order.Order;
+import com.ra1ntest.persistance.type.OrderStatusType;
 import com.ra1ntest.repository.order.OrderRepository;
 import com.ra1ntest.service.order.OrderService;
 import jakarta.transaction.Transactional;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +27,8 @@ public class OrderServiceImpl implements OrderService {
         order.setCart(cart);
         order.setPrice(BigDecimal.valueOf(cart.getTotalPrice()));
         order.setCustomer(cart.getCustomer());
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        order.setUpdatedAt(String.valueOf(currentDateTime));
         orderRepository.save(order);
         return order;
     }
@@ -31,6 +36,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findOrderByCartId(Long cartId) {
         return orderRepository.findByCartId(cartId);
+    }
+
+    @Override
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findOrderById(orderId);
+        if (order != null) {
+            order.setOrderStatus(OrderStatusType.CANCELED.getOrderStatus());
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            order.setUpdatedAt(String.valueOf(currentDateTime));
+            orderRepository.save(order);
+        } else {
+            throw new EntityNotFoundException("Order not found by order id");
+        }
     }
 
     @Override

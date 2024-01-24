@@ -2,8 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import {CartService} from "../../services/cart.service";
-import {CartItems} from "../../models/cart-items";
 import {OrderService} from "../../services/order.service";
 import {OrderData} from "../../models/order-data";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -28,10 +26,21 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   showModal = false;
   orderId: string = "";
+  Pending: string = "Pending";
+  Canceled: string = "Canceled";
 
   openModal(id: string) {
     this.orderId = id;
     this.showModal = true;
+  }
+
+  cancelOrder(id: number) {
+    this._sub$.add(
+      this._orderService.cancelOrder(id)
+        .subscribe(() => {
+          this.orders$ = this._orderService.loadOrders();
+        })
+    );
   }
 
   closeModal() {

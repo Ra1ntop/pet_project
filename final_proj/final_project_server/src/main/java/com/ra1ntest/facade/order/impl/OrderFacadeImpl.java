@@ -2,11 +2,8 @@ package com.ra1ntest.facade.order.impl;
 
 import com.ra1ntest.api.dto.response.cart.CartItemsDto;
 import com.ra1ntest.api.dto.response.order.OrderDto;
-import com.ra1ntest.api.dto.response.product.ProductPdpDto;
-import com.ra1ntest.facade.cart.CartFacade;
 import com.ra1ntest.facade.order.OrderFacade;
 import com.ra1ntest.persistance.entity.cart.Cart;
-import com.ra1ntest.persistance.entity.cart.CartEntry;
 import com.ra1ntest.persistance.entity.order.Order;
 import com.ra1ntest.service.cart.CartService;
 import com.ra1ntest.service.order.OrderService;
@@ -14,9 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import static java.util.Collections.addAll;
 
 @Service
 @RequiredArgsConstructor
@@ -52,8 +48,15 @@ public class OrderFacadeImpl implements OrderFacade {
             Cart cart = carts.get(i);
             orderDtos.add(findOrder(cart));
         }
+
         System.out.println(orderDtos);
+        Collections.reverse(orderDtos);
         return orderDtos;
+    }
+
+    @Override
+    public void cancelOrder(Long orderId) {
+        orderService.cancelOrder(orderId);
     }
 
 }
