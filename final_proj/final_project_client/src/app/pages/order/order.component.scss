@@ -1,0 +1,69 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.overlay_inner {
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  z-index: 9;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+//fafw
+.container_order {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.card_container_order {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+}
+
+.card_order_info_container_order {
+  min-height: 200px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.card_order_info_container_order_inner_items {
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  width: 18%;
+  align-items: center;
+}
+
+.card_order_info_container_order_inner_items_cart {
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  width: 18%;
+  align-items: center;
+  justify-content: center;
+}

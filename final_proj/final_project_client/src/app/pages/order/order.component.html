@@ -1,18 +1,54 @@
 <ng-container *ngIf="orders$ | async as orders">
-  <div *ngFor="let order of orders">
-    <h1>id: {{order.id}}</h1>
-    <p>orderId: {{order.orderId}}</p>
-    <p>price: {{order.price}}</p>
-    <p>orderStatus: {{order.orderStatus}}</p>
-    <p>cartItems: {{order.cartEntry}}</p>
-    <h2>Cart Items:</h2>
-    <ol *ngFor="let item of order.cartEntry">
-      <li>{{ item.productVariantId }}</li>
-      <li>{{ item.name }}</li>
-      <li>{{ item.image }}</li>
-      <li>{{ item.color }}</li>
-      <li>{{ item.ssd }}</li>
-      <li>{{ item.price }}</li>
-    </ol>
+
+  <div *ngIf="showModal" class="overlay">
+    <ng-container *ngFor="let order of orders">
+      <div *ngIf="order.orderId == orderId" class="overlay_inner">
+        <button class="close" (click)="closeModal()"></button>
+        <p>Здесь что-то написано в модальном окне</p>
+        <a href="https://google.com">ddwwdw</a>
+        <div *ngFor="let i of order.cartEntry" class="">
+          <p>p:{{i.name}}</p>
+          <p>{{i.productVariantId}}</p>
+          <p>{{i.quantity}}</p>
+          <p>{{i.price}}</p>
+          <p>{{i.ssd}}</p>
+          <p>{{i.color}}</p>
+          <p>{{i.totalPrice}}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="container_order">
+    <div class="card_container_order" *ngFor="let order of orders">
+
+      <div class="card_order_info_container_order">
+        <div class="card_order_info_container_order_inner_items">
+          <p>orderId:</p>
+          <p>{{ order.orderId }}</p>
+        </div>
+        <div class="card_order_info_container_order_inner_items">
+          <p>price:</p>
+          <p>{{ order.price }}</p>
+        </div>
+        <div class="card_order_info_container_order_inner_items">
+          <p>orderStatus: </p>
+          <p> {{ order.orderStatus }}</p>
+        </div>
+        <div class="card_order_info_container_order_inner_items">
+          <p>
+            Name:
+          </p>
+          <span *ngFor="let item of order.cartEntry">
+            {{ item.name }}
+            {{ item.productVariantId}}
+          </span>
+
+        </div>
+        <div class="card_order_info_container_order_inner_items_cart">
+          <button (click)="openModal(order.orderId)">Открыть модальное окно</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </ng-container>

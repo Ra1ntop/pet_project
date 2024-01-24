@@ -26,6 +26,19 @@ export class OrderComponent implements OnInit, OnDestroy {
   constructor(private _authService: AuthService, private _router: Router, private _orderService: OrderService) {
   }
 
+  showModal = false;
+  orderId: string = "";
+
+  openModal(id: string) {
+    this.orderId = id;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.orderId = "";
+    this.showModal = false;
+  }
+
   ngOnInit(): void {
     this._sub$.add(
       this._authService.isLoginIn()
