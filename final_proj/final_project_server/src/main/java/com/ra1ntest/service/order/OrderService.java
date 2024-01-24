@@ -7,7 +7,7 @@ import com.ra1ntest.service.CrudService;
 import java.util.List;
 
 public interface OrderService {
-    void createOrder(Cart cart);
+    Order createOrder(Cart cart);
 
     Order findOrderByCartId(Long cartid);
 

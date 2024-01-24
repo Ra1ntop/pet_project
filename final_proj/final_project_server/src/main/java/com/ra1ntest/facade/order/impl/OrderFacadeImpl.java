@@ -7,6 +7,7 @@ import com.ra1ntest.facade.cart.CartFacade;
 import com.ra1ntest.facade.order.OrderFacade;
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.cart.CartEntry;
+import com.ra1ntest.persistance.entity.order.Order;
 import com.ra1ntest.service.cart.CartService;
 import com.ra1ntest.service.order.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -26,25 +27,21 @@ public class OrderFacadeImpl implements OrderFacade {
     public void createOrder() {
         Cart cart = cartService.getCart();
         if (cart.getTotalPrice() > 0) {
-            orderService.createOrder(cartService.getCart());
-            cartService.setDisable(cart);
+            Order order = orderService.createOrder(cartService.getCart());
+            cartService.setOrdered(cart, order);
         }
     }
 
     @Override
-    public List<OrderDto> findOrders() {
-        Long customerId = cartService.getCart().getCustomer().getId();
-        List<Cart> carts = cartService.findCart();
-        List<CartEntry> cartEntries;
-
-        return orderService.findOrdersByCustomerId(customerId).stream().map(
-                order -> {
-                    Cart cart = order.getCart();
-                    List<CartEntry> entries = cartService.getEntriesByCart(cart);
-                    System.out.println("entries = " + entries);
-                    return new OrderDto(order);
-                }
-        ).toList();
+    public OrderDto findOrder() {
+        List<Cart> cart = cartService.findCart();
+        Cart cart1 = cart.get(0);
+        Order order = orderService.findOrderByCartId(cart1.getId());
+        List<CartItemsDto> cartEntries = cartService
+                .getEntriesByCart(cart1)
+                .stream()
+                .map(CartItemsDto::new).toList();
+        return new OrderDto(order, cartEntries);
     }
 
 }

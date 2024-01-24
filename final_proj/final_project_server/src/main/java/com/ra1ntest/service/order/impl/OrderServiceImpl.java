@@ -1,6 +1,7 @@
 package com.ra1ntest.service.order.impl;
 
 import com.ra1ntest.persistance.entity.cart.Cart;
+import com.ra1ntest.persistance.entity.cart.CartEntry;
 import com.ra1ntest.persistance.entity.order.Order;
 import com.ra1ntest.repository.order.OrderRepository;
 import com.ra1ntest.service.order.OrderService;
@@ -18,12 +19,13 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public void createOrder(Cart cart) {
+    public Order createOrder(Cart cart) {
         Order order = new Order();
         order.setCart(cart);
         order.setPrice(BigDecimal.valueOf(cart.getTotalPrice()));
         order.setCustomer(cart.getCustomer());
         orderRepository.save(order);
+        return order;
     }
 
     @Override

@@ -7,6 +7,6 @@ import java.util.List;
 public interface OrderFacade {
     void createOrder();
 
-    List<OrderDto> findOrders();
+    OrderDto findOrder();
 
 }

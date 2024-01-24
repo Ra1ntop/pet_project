@@ -4,6 +4,7 @@ import com.ra1ntest.exception.CartEntryNotFoundException;
 import com.ra1ntest.exception.EntityNotFoundException;
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.cart.CartEntry;
+import com.ra1ntest.persistance.entity.order.Order;
 import com.ra1ntest.persistance.entity.product.ProductVariant;
 import com.ra1ntest.persistance.entity.user.Customer;
 import com.ra1ntest.repository.cart.CartEntryRepository;
@@ -173,7 +174,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void setDisable(Cart cart) {
+    public void setOrdered(Cart cart, Order order) {
+        cart.setOrder(order);
         cart.setActive(false);
         cartRepository.save(cart);
     }

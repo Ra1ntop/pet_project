@@ -2,6 +2,7 @@ package com.ra1ntest.service.cart;
 
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.cart.CartEntry;
+import com.ra1ntest.persistance.entity.order.Order;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface CartService {
 
     Cart getActive();
 
-    void setDisable(Cart cart);
+    void setOrdered(Cart cart, Order order);
 
     Cart getCart();
 
