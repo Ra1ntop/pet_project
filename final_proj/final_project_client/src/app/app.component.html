@@ -8,25 +8,29 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/plp">iPhone</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" routerLink="/pdp">pdp Test </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
+
+          <div class="dropdown" *ngIf="(isLoginIn$ | async)">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+              My Account
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/account">My profile</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <ng-container *ngIf="isLoginIn$ | async">
+                <button (click)="logout()" class="btn btn-primary me-md-2" type="button">logout
+                </button>
+                <a routerLink="/cart">Cart</a>
+              </ng-container>
+            </ul>
+          </div>
 
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <ng-container *ngIf="isLoginIn$ | async">
-              <button (click)="logout()" class="btn btn-primary me-md-2" type="button">logout
-              </button>
-              <a routerLink="/cart">Cart</a>
-            </ng-container>
+
 
             <button (click)="login()" class="btn btn-primary" type="button" *ngIf="!(isLoginIn$ | async)">login</button>
           </div>

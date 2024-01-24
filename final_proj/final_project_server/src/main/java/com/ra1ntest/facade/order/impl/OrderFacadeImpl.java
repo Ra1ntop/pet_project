@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.addAll;
+
 @Service
 @RequiredArgsConstructor
 public class OrderFacadeImpl implements OrderFacade {
@@ -33,15 +35,25 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
-    public OrderDto findOrder() {
-        List<Cart> cart = cartService.findCart();
-        Cart cart1 = cart.get(0);
-        Order order = orderService.findOrderByCartId(cart1.getId());
+    public OrderDto findOrder(Cart cart) {
+        Order order = orderService.findOrderByCartId(cart.getId());
         List<CartItemsDto> cartEntries = cartService
-                .getEntriesByCart(cart1)
+                .getEntriesByCart(cart)
                 .stream()
                 .map(CartItemsDto::new).toList();
         return new OrderDto(order, cartEntries);
+    }
+
+    @Override
+    public List<OrderDto> findOrders() {
+        List<OrderDto> orderDtos = new ArrayList<>();
+        List<Cart> carts = cartService.findCart();
+        for (int i = 0; i < carts.size(); i++) {
+            Cart cart = carts.get(i);
+            orderDtos.add(findOrder(cart));
+        }
+        System.out.println(orderDtos);
+        return orderDtos;
     }
 
 }

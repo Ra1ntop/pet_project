@@ -1,5 +1,6 @@
 import {Routes} from '@angular/router';
 import {PDP_ROUTES} from "./pages/pdp/pdp.routes";
+import {ACCOUNT_ROUTES} from "./pages/account/account.routes";
 
 export const routes: Routes = [
   {
@@ -36,5 +37,10 @@ export const routes: Routes = [
     path: 'register',
     pathMatch: 'prefix',
     loadChildren: () => import('./pages/register/register.routes').then(r => r.REGISTER_ROUTES)
+  },
+  {
+    path: 'account',
+    pathMatch: 'prefix',
+    loadChildren: () => import('./pages/account/account.routes').then(r => r.ACCOUNT_ROUTES)
   },
 ];
