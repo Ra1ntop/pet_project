@@ -11,6 +11,7 @@ import {CartItems} from "../models/cart-items";
 export class CartService implements OnInit, OnDestroy {
 
   private _apiUrl: string = `${httpConfig.apiCustomerUrl}/cart`;
+  private _apiUrlOrder: string = `${httpConfig.apiCustomerUrl}/order`;
   private _subscription$ = new Subscription();
 
   constructor(private _http: HttpClient, private _authService: AuthService) {
@@ -58,7 +59,13 @@ export class CartService implements OnInit, OnDestroy {
     return this._http.put<string>(this._apiUrl, null, {params, headers});
   }
 
-
+  createOrder(): Observable<string> {
+    let token = this._authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`)
+    let params = new HttpParams();
+    return this._http.post<string>(this._apiUrlOrder, null, {headers});
+  }
   ngOnDestroy(): void {
     this._subscription$.unsubscribe();
   }

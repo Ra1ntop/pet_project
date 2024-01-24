@@ -20,7 +20,7 @@
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="/account">My profile</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" routerLink="/order">Orders</a></li>
               <ng-container *ngIf="isLoginIn$ | async">
                 <button (click)="logout()" class="btn btn-primary me-md-2" type="button">logout
                 </button>

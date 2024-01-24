@@ -18,8 +18,8 @@ import java.util.List;
 public class OrderDto extends ResponseDto {
 
     private String orderId;
-    private List<CartItemsDto> cartEntry;
     private BigDecimal price;
+    private List<CartItemsDto> cartEntry;
     private String orderStatus;
 
     public OrderDto(Order order, List<CartItemsDto> cartEntries) {

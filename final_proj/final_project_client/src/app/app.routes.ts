@@ -43,4 +43,9 @@ export const routes: Routes = [
     pathMatch: 'prefix',
     loadChildren: () => import('./pages/account/account.routes').then(r => r.ACCOUNT_ROUTES)
   },
+  {
+    path: 'order',
+    pathMatch: 'prefix',
+    loadChildren: () => import('./pages/order/order.routes').then(r => r.ORDER_ROUTES)
+  },
 ];

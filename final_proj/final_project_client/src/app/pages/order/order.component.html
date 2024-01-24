@@ -1,0 +1,18 @@
+<ng-container *ngIf="orders$ | async as orders">
+  <div *ngFor="let order of orders">
+    <h1>id: {{order.id}}</h1>
+    <p>orderId: {{order.orderId}}</p>
+    <p>price: {{order.price}}</p>
+    <p>orderStatus: {{order.orderStatus}}</p>
+    <p>cartItems: {{order.cartEntry}}</p>
+    <h2>Cart Items:</h2>
+    <ol *ngFor="let item of order.cartEntry">
+      <li>{{ item.productVariantId }}</li>
+      <li>{{ item.name }}</li>
+      <li>{{ item.image }}</li>
+      <li>{{ item.color }}</li>
+      <li>{{ item.ssd }}</li>
+      <li>{{ item.price }}</li>
+    </ol>
+  </div>
+</ng-container>
