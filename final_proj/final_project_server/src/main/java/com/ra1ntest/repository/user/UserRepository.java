@@ -13,4 +13,7 @@ public interface UserRepository<U extends User> extends BaseRepository<U> {
 
     boolean existsByLogin(String login);
 
+    User findUserByLogin(String login);
+
+
 }

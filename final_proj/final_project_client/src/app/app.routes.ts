@@ -1,6 +1,4 @@
 import {Routes} from '@angular/router';
-import {PDP_ROUTES} from "./pages/pdp/pdp.routes";
-import {ACCOUNT_ROUTES} from "./pages/account/account.routes";
 
 export const routes: Routes = [
   {
@@ -47,5 +45,10 @@ export const routes: Routes = [
     path: 'order',
     pathMatch: 'prefix',
     loadChildren: () => import('./pages/order/order.routes').then(r => r.ORDER_ROUTES)
+  },
+  {
+    path: 'panel',
+    pathMatch: 'prefix',
+    loadChildren: () => import('./pages/panel/panel.routes').then(r => r.PANEL_ROUTES)
   },
 ];

@@ -1,9 +1,9 @@
-export interface RegisterData {
-  email: string;
+export interface AccountData {
+  login: string;
   firstName: string;
   lastName: string;
   age: string;
-  password: string;
+  roleType: string;
   country: string;
 
 }

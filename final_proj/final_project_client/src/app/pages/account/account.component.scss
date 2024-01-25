@@ -1,0 +1,30 @@
+.orderid_span {
+  color: gray;
+  font-size: 14px;
+}
+
+.card_body_items_order {
+  font-size: .77rem;
+}
+
+.card_body_items_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.card_body_items_container_inner_order {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.account_order_center_content {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.card_body_inner_p {
+  color: gray;
+}

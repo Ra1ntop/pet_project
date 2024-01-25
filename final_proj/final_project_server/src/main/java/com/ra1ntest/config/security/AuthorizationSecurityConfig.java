@@ -34,15 +34,15 @@ public class AuthorizationSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/open/**", "/api/auth/**", "/swagger-ui/**", "v3/api-docs/**").permitAll()
-                        .requestMatchers(GET, "/api/customer/", "/api/customer/cart/", "/api/customer/order/").hasAuthority(CUSTOMER_READ.name())
-                        .requestMatchers(POST, "/api/customer/").hasAuthority(CUSTOMER_CREATE.name())
-                        .requestMatchers(PUT, "/api/customer/", "/api/customer/order/cancel-order/", "/api/customer/order/").hasAuthority(CUSTOMER_UPDATE.name())
-                        .requestMatchers(DELETE, "/api/customer/").hasAuthority(CUSTOMER_DELETE.name())
+                        .requestMatchers(GET, "/api/customer/", "/api/customer/cart/", "/api/customer/order/", "/api/account/").hasAuthority(CUSTOMER_READ.name())
+                        .requestMatchers(POST, "/api/customer/", "/api/account/").hasAuthority(CUSTOMER_CREATE.name())
+                        .requestMatchers(PUT, "/api/customer/", "/api/customer/order/cancel-order/", "/api/customer/order/", "/api/account/").hasAuthority(CUSTOMER_UPDATE.name())
+                        .requestMatchers(DELETE, "/api/customer/", "/api/account/").hasAuthority(CUSTOMER_DELETE.name())
 
-                        .requestMatchers(GET, "/api/admin/").hasAuthority(ADMIN_READ.name())
-                        .requestMatchers(POST, "/api/admin/").hasAuthority(ADMIN_CREATE.name())
-                        .requestMatchers(PUT, "/api/admin/").hasAuthority(ADMIN_UPDATE.name())
-                        .requestMatchers(DELETE, "/api/admin/").hasAuthority(ADMIN_DELETE.name())
+                        .requestMatchers(GET, "/api/admin/", "/api/account/").hasAuthority(ADMIN_READ.name())
+                        .requestMatchers(POST, "/api/admin/", "/api/account/").hasAuthority(ADMIN_CREATE.name())
+                        .requestMatchers(PUT, "/api/admin/", "/api/account/").hasAuthority(ADMIN_UPDATE.name())
+                        .requestMatchers(DELETE, "/api/admin/", "/api/account/").hasAuthority(ADMIN_DELETE.name())
                         .anyRequest().authenticated()
 
                 )

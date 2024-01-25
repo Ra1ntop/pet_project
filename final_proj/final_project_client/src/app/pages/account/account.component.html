@@ -1,1 +1,179 @@
-<p>account works!</p>
+<ng-container *ngIf="accountData$ | async as accountData">
+
+  <section style="background-color: #eee; padding-top: 50px; padding-bottom: 50px;">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img *ngIf="!accountData.roleType.includes(ADMIN)"
+                 src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                 class="rounded-circle img-fluid" style="width: 150px;">
+            <img *ngIf="accountData.roleType.includes(ADMIN)"
+                 src="https://png.pngtree.com/png-clipart/20230409/original/pngtree-admin-and-customer-service-job-vacancies-png-image_9041264.png"
+                 alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{ accountData.firstName }} {{ accountData.lastName }}</h5>
+            <p class="text-muted mb-1">{{ accountData.roleType }}</p>
+            <p class="text-muted mb-4">{{ accountData.login }}</p>
+            <div *ngIf="accountData.roleType.includes(ADMIN)" class="d-flex justify-content-center mb-2">
+              <a routerLink="/panel" type="button" class="btn btn-primary">Manage orders</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row" *ngIf="accountData.roleType.includes(ADMIN)">
+              <div class="col-sm-3">
+                <p class="mb-0">Role</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ accountData.roleType }}</p>
+              </div>
+            </div>
+            <hr *ngIf="accountData.roleType.includes(ADMIN)">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ accountData.firstName }} {{ accountData.lastName }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ accountData.login }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Country</p>
+              </div>
+              <div class="col-sm-9" *ngIf="accountData.country">
+                <p class="text-muted mb-0">{{ accountData.country }}</p>
+              </div>
+              <div class="col-sm-9" *ngIf="!accountData.country">
+                <p class="text-muted mb-0">User didn`t write his country :(</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Age</p>
+              </div>
+              <div class="col-sm-9" *ngIf="accountData.age">
+                <p class="text-muted mb-0">{{ accountData.age }}</p>
+              </div>
+              <div class="col-sm-9" *ngIf="!accountData.age">
+                <p class="text-muted mb-0">User didn`t write his age :(</p>
+              </div>
+            </div>
+            <hr>
+
+          </div>
+        </div>
+        <div class="row" *ngIf="!accountData.roleType.includes(ADMIN)">
+          <ng-container *ngIf="orders$ | async as orders">
+            <div class="col-md-6" *ngIf="orders.length == 0">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <div class="account_order_center_content">
+                    <p class="mb-4"><span class="font-italic me-1 card_body_inner_p">This user has not made any orders yet</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="orders.length >= 1">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Last order</span> <span
+                    class="orderid_span">{{ orders.at(0)?.orderId }}</span>
+                  </p>
+                  <div class="progress rounded" style="height: 5px;"></div>
+                  <div *ngFor="let orderItem of orders.at(0)?.cartEntry">
+                    <div class="card_body_items_container">
+                      <div class="card_body_items_container_inner_order">
+                        <p class="mb-1 card_body_items_order">Name: </p>
+                        <p class="mb-1 card_body_items_order">Ssd: </p>
+                        <p class="mb-1 card_body_items_order">Quantity: </p>
+                        <p class="mb-1 card_body_items_order">Color: </p>
+
+                      </div>
+                      <div class="card_body_items_container_inner_order">
+                        <p class="mb-1 card_body_items_order">{{ orderItem.name }}</p>
+                        <p class="mb-1 card_body_items_order">{{ orderItem.ssd }}</p>
+                        <p class="mb-1 card_body_items_order">{{ orderItem.quantity }}</p>
+                        <p class="mb-1 card_body_items_order">{{ orderItem.color }}</p>
+                      </div>
+                    </div>
+                    <div class="account_order_center_content">
+                      <p class="mt-1 mb-1 card_body_items_order">Price: {{ orderItem.price }}</p>
+                    </div>
+                    <div class="progress rounded" style="height: 5px;"></div>
+
+                  </div>
+                  <div class="account_order_center_content">
+                    <p class="mb-1" style="font-size: .77rem;">Order status: {{ orders.at(0)?.orderStatus }}</p>
+                  </div>
+                  <div class="account_order_center_content">
+                    <p class="mb-1" style="font-size: .77rem;">Total price: {{ orders.at(0)?.price }}</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="orders.length >= 2">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Last order</span> <span
+                    class="orderid_span">{{ orders.at(1)?.orderId }}</span>
+                  </p>
+                  <div class="progress rounded" style="height: 5px;"></div>
+                  <div *ngFor="let orderItem of orders.at(1)?.cartEntry">
+                    <div class="card_body_items_container">
+                      <div class="card_body_items_container_inner_order">
+                        <p class="mb-1 card_body_items_order">Name: </p>
+                        <p class="mb-1 card_body_items_order">Ssd: </p>
+                        <p class="mb-1 card_body_items_order">Quantity: </p>
+                        <p class="mb-1 card_body_items_order">Color: </p>
+
+                      </div>
+                      <div class="card_body_items_container_inner_order">
+                        <p class="mb-1 card_body_items_order">{{ orderItem.name }}</p>
+                        <p class="mb-1 card_body_items_order">{{ orderItem.ssd }}</p>
+                        <p class="mb-1 card_body_items_order">{{ orderItem.quantity }}</p>
+                        <p class="mb-1 card_body_items_order">{{ orderItem.color }}</p>
+                      </div>
+                    </div>
+                    <div class="account_order_center_content">
+                      <p class="mt-1 mb-1 card_body_items_order">Price: {{ orderItem.price }}</p>
+                    </div>
+                    <div class="progress rounded" style="height: 5px;"></div>
+
+
+                  </div>
+                  <div class="account_order_center_content">
+                    <p class="mb-1" style="font-size: .77rem;">Order status: {{ orders.at(1)?.orderStatus }}</p>
+                  </div>
+                  <div class="account_order_center_content">
+                    <p class="mb-1" style="font-size: .77rem;">Total price: {{ orders.at(1)?.price }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</ng-container>
