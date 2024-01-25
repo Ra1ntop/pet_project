@@ -1,14 +1,24 @@
 package com.ra1ntest.api.controller.admin;
 
+import com.ra1ntest.api.dto.response.account.CustomersDto;
+import com.ra1ntest.facade.account.AccountFacade;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @GetMapping("")
-    public String get() {
-        return "Admin get";
+    private final AccountFacade accountFacade;
+
+    @GetMapping("/panel")
+    public ResponseEntity<List<CustomersDto>> get() {
+        System.out.println(accountFacade.getCustomers());
+        return ResponseEntity.ok(accountFacade.getCustomers());
     }
 
     @GetMapping("/test")
