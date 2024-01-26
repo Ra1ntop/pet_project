@@ -8,5 +8,10 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends UserRepository<Customer> {
 
+    Customer findCustomerByLoginAndEnabledTrue(String login);
+
+    Boolean existsCustomerByLoginAndEnabledTrue(String login);
+
+    Boolean existsCustomerByLoginAndEnabledTrueAndAccountNonLockedTrue(String login);
 
 }

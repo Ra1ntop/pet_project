@@ -1,7 +1,10 @@
 package com.ra1ntest.api.controller.admin;
 
+import com.ra1ntest.api.dto.request.auth.RegisterDto;
+import com.ra1ntest.api.dto.request.panel.BlockCustomerDto;
 import com.ra1ntest.api.dto.response.account.CustomersDto;
 import com.ra1ntest.facade.account.AccountFacade;
+import com.ra1ntest.facade.account.block.CustomerBlockFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import java.util.List;
 public class AdminController {
 
     private final AccountFacade accountFacade;
+    private final CustomerBlockFacade customerBlockFacade;
 
     @GetMapping("/panel")
     public ResponseEntity<List<CustomersDto>> get() {
@@ -21,6 +25,12 @@ public class AdminController {
         return ResponseEntity.ok(accountFacade.getCustomers());
     }
 
+    @PutMapping("/block-user")
+    public String put(@RequestBody BlockCustomerDto blockCustomerDto) {
+        System.out.println(blockCustomerDto.toString());
+        customerBlockFacade.blockCustomer(blockCustomerDto);
+        return "dwdw";
+    }
     @GetMapping("/test")
     public String getTest() {
         return "Admin get Test";
@@ -36,10 +46,6 @@ public class AdminController {
         return "Admin post test";
     }
 
-    @PutMapping
-    public String put() {
-        return "Admin put";
-    }
 
     @DeleteMapping
     public String delete() {

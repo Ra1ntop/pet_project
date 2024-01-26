@@ -52,6 +52,12 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false, name = "role_type")
     private RoleType roleType;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "blockedAt")
+    private String blockedAt;
+
     public User() {
         this.accountNonExpired = true;
         this.accountNonLocked = true;

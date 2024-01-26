@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center">
+  <div class="w-75">
+    <form [formGroup]="form">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input formControlName="customerMail" type="email" class="form-control" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">You should write customer's email for block</div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputReason" class="form-label">Reason</label>
+        <input formControlName="reason" type="text" class="form-control" id="exampleInputReason"
+               aria-describedby="emailHelp">
+        <div id="reasonHelp" class="form-text">You should write reason why we block customer. Min length: 50</div>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input formControlName="checkBox" type="checkBox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">I'm pretty sure I want to block this client. I am sure that
+          my actions are in full compliance with RS rules</label>
+      </div>
+      <button type="submit" class="btn btn-primary" disabled *ngIf="!form.valid">Block</button>
+      <button (click)="blockCustomer()" type="submit" class="btn btn-primary" *ngIf="form.valid">Block</button>
+    </form>
+  </div>
+</div>
