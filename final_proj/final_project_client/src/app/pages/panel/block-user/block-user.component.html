@@ -1,4 +1,11 @@
 <div class="d-flex justify-content-center">
+  <div *ngIf="accountHaveBlocked" class="overlay">
+    <div class="overlay_inner ">
+      <button class="close" (click)="closeModal()">Close</button>
+      <h1 class="card_order_info_container_order_inner_items_p">{{errorHtml}}</h1>
+    </div>
+  </div>
+
   <div class="w-75">
     <form [formGroup]="form">
       <div class="mb-3">

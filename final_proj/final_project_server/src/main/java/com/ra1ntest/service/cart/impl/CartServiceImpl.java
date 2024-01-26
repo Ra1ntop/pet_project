@@ -158,6 +158,11 @@ public class CartServiceImpl implements CartService {
         calculateAndSaveTotalPrice(cart);
     }
 
+    @Override
+    public List<Cart> findCartsByCustomerId(Long customerId) {
+        return cartRepository.findAllByCustomerIdAndActiveFalse(customerId);
+    }
+
     private void calculateAndSaveTotalPrice(Cart cart) {
         System.out.println("CartServiceImpl.calculateAndSaveTotalPrice");
         List<CartEntry> allByCartId2 = cartEntryRepository.findAllByCartId(cart.getId());

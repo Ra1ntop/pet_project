@@ -1,0 +1,113 @@
+<div *ngIf="ordersNull.length>0" class="ordersNull">
+  <h1>{{ordersNull}}</h1>
+</div>
+
+<ng-container *ngIf="productPdp$ | async as orders">
+
+  <div (click)="closeModal()" *ngIf="showModal" class="overlay ">
+    <ng-container *ngFor="let order of orders">
+      <div *ngIf="order.orderId == orderId" class="overlay_inner ">
+        <button class="close" (click)="closeModal()"></button>
+        <p class="card_order_info_container_order_inner_items_p">Order id: {{ orderId }}</p>
+        <div *ngFor="let i of order.cartEntry" class="overlay_order_container ">
+          <div class="overlay_order_container-inner-card">
+            <div class="overlay_order_container-inner-card-prod-container">
+              <div class="overlay_order_container-inner-card-prod-inner-info">
+                <p class="card_order_info_container_order_inner_items_p">Product name: </p>
+                <p class="card_order_info_container_order_inner_items_p">Quantity: </p>
+              </div>
+              <div class="overlay_order_container-inner-card-prod-inner-info">
+                <p>{{ i.name }}</p>
+                <p>{{ i.quantity }}</p>
+              </div>
+            </div>
+
+            <img src="{{i.image}}" alt="" class="img_order">
+          </div>
+          <div class="overlay-order-inner-info-prod">
+            <div class="overlay-order-inner-info-prod-container">
+              <div class="overlay-order-inner-info-prod-inner-info-product-variant">
+                <p class="card_order_info_container_order_inner_items_p">Ssd: </p>
+                <p class="card_order_info_container_order_inner_items_p">Color: </p>
+                <p class="card_order_info_container_order_inner_items_p">Price: </p>
+              </div>
+              <div class="overlay-order-inner-info-prod-inner-info-product-variant">
+                <p>{{ i.ssd }}</p>
+                <p>{{ i.color }}</p>
+                <p>{{ i.price }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <p>Total price: {{ order.price }}</p>
+      </div>
+    </ng-container>
+  </div>
+  <div class="container_order">
+
+    <div class="card_container_order" *ngFor="let order of orders">
+      <ng-container *ngIf="order.orderStatus.includes(Pending)">
+        <div class="card_order_info_container_order">
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">orderId:</p>
+            <p>{{ order.orderId }}</p>
+          </div>
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">price:</p>
+            <p>{{ order.price }}</p>
+
+          </div>
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">orderStatus: </p>
+            <p> {{ order.orderStatus }}</p>
+          </div>
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">
+              Name:
+            </p>
+            <span *ngFor="let item of order.cartEntry">
+            {{ item.name }}
+          </span>
+
+          </div>
+          <div class="card_order_info_container_order_inner_items_cart">
+            <button (click)="openModal(order.orderId)">Open products</button>
+          </div>
+          <button (click)="changeOrderStatus(order.id)">Cancel order</button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="card_container_order" *ngFor="let order of orders">
+      <ng-container *ngIf="order.orderStatus.includes(Canceled)">
+        <div class="card_order_info_container_order card_order_info_container_order_inner_items_p">
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">orderId:</p>
+            <p>{{ order.orderId }}</p>
+          </div>
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">price:</p>
+            <p>{{ order.price }}</p>
+
+          </div>
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">orderStatus: </p>
+            <p class=""> {{ order.orderStatus }}</p>
+          </div>
+          <div class="card_order_info_container_order_inner_items">
+            <p class="card_order_info_container_order_inner_items_p">
+              Name:
+            </p>
+            <span *ngFor="let item of order.cartEntry">
+            {{ item.name }}
+          </span>
+
+          </div>
+          <div class="card_order_info_container_order_inner_items_cart">
+            <button (click)="openModal(order.orderId)">Open products</button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

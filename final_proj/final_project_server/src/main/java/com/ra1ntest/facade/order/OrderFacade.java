@@ -12,5 +12,8 @@ public interface OrderFacade {
 
     List<OrderDto> findOrders();
 
+    List<OrderDto> findOrdersByCustomerId(Long customerId);
+
+
     void cancelOrder(Long orderId);
 }

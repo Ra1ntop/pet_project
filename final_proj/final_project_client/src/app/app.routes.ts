@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {BLOCKUSER_ROUTES} from "./pages/panel/block-user/block-user.routes";
 
 export const routes: Routes = [
   {
@@ -56,5 +55,10 @@ export const routes: Routes = [
     path: 'block-user',
     pathMatch: 'prefix',
     loadChildren: () => import('./pages/panel/block-user/block-user.routes').then(r => r.BLOCKUSER_ROUTES)
+  },
+  {
+    path: 'customer-orders',
+    pathMatch: 'prefix',
+    loadChildren: () => import('./pages/panel/customer-orders/customer-orders.routes').then(r => r.CUSTOMER_ORDERS_ROUTES)
   },
 ];

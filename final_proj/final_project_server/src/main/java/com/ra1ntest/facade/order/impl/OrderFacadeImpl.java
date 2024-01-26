@@ -55,6 +55,21 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
+    public List<OrderDto> findOrdersByCustomerId(Long customerId) {
+        orderService.findOrdersByCustomerId(customerId);
+        List<OrderDto> orderDtos = new ArrayList<>();
+        List<Cart> carts = cartService.findCartsByCustomerId(customerId);
+        for (int i = 0; i < carts.size(); i++) {
+            Cart cart = carts.get(i);
+            orderDtos.add(findOrder(cart));
+        }
+
+        System.out.println(orderDtos);
+        Collections.reverse(orderDtos);
+        return orderDtos;
+    }
+
+    @Override
     public void cancelOrder(Long orderId) {
         orderService.cancelOrder(orderId);
     }

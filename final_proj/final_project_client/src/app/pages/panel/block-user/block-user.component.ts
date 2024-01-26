@@ -2,8 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {Subscription} from "rxjs";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {RegisterData} from "../../../models/register-data";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {BlockService} from "../../../services/block.service";
 import {BlockCustomer} from "../../../models/block-customer";
 
@@ -12,7 +11,8 @@ import {BlockCustomer} from "../../../models/block-customer";
   standalone: true,
   imports: [
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgForOf
   ],
   templateUrl: './block-user.component.html',
   styleUrl: './block-user.component.scss'
@@ -29,6 +29,12 @@ export class BlockUserComponent implements OnDestroy {
   constructor(private _fb: FormBuilder, private _router: Router, private _blockService: BlockService) {
   }
 
+  accountHaveBlocked: boolean = false;
+  errorHtml: string = "";
+
+  closeModal() {
+    this.accountHaveBlocked = false;
+  }
   blockCustomer(): void {
     if (this.form.valid) {
       console.log(this.form);
@@ -37,10 +43,19 @@ export class BlockUserComponent implements OnDestroy {
       this._sub.add(
         this._blockService.blockCustomer(data).subscribe(
           (auth) => {
-            this._router.navigateByUrl('/panel')
           },
           (err) => {
-            console.log('err', err);
+            if (err.error == "The account has already been blocked") {
+              console.log('err', err.error);
+              this.accountHaveBlocked = true;
+              this.errorHtml = err.error;
+            } else {
+              console.log('err', err);
+              this.accountHaveBlocked = true;
+
+              this.errorHtml = err.error;
+
+            }
           }
         )
       );

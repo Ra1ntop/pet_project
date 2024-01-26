@@ -13,6 +13,8 @@ public interface CartService {
 
     void deleteProductFromCart(Long productVariantId);
 
+    List<Cart> findCartsByCustomerId(Long customerId);
+
     Cart getActive();
 
     void setOrdered(Cart cart, Order order);

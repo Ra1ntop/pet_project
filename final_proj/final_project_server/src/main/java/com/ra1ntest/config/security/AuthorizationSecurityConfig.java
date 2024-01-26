@@ -44,7 +44,7 @@ public class AuthorizationSecurityConfig {
 
 
                         .requestMatchers("/api/admin/**").hasAnyRole(ADMIN.name())
-                        .requestMatchers(GET, "/api/admin", "/api/account/", "/api/admin/panel/").hasAuthority(ADMIN_READ.name())
+                        .requestMatchers(GET, "/api/admin/", "/api/account/", "/api/admin/panel/").hasAuthority(ADMIN_READ.name())
                         .requestMatchers(POST, "/api/admin/", "/api/account/").hasAuthority(ADMIN_CREATE.name())
                         .requestMatchers(PUT, "/api/admin/", "/api/account/").hasAuthority(ADMIN_UPDATE.name())
                         .requestMatchers(DELETE, "/api/admin/", "/api/account/").hasAuthority(ADMIN_DELETE.name())

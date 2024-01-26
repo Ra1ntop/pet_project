@@ -16,9 +16,14 @@
             <li *ngIf="account.country" class="list-group-item">Country: {{ account.country }}</li>
             <li *ngIf="!account.country" class="list-group-item">Country: User didn't write his country :(</li>
             <li class="list-group-item">Role type: {{ account.roleType }}</li>
+            <ng-container *ngIf="!account.accountNonLocked">
+              <li class="list-group-item">Account blocked: {{ !account.accountNonLocked }}</li>
+              <li class="list-group-item">Description: {{ account.description }}</li>
+              <li class="list-group-item">Blocked at: {{ account.blockedAt }}</li>
+            </ng-container>
           </ul>
           <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
+            <a (click)="goToCustomerOrders(account.accountId)" routerLink="#" class="card-link">Card link</a>
             <a href="#" class="card-link">Another link</a>
           </div>
         </div>
