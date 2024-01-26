@@ -1,1 +1,28 @@
-<p>panel works!</p>
+<div class="panel_container">
+  <div class="panel_container_inner">
+    <ng-container *ngIf="accounts$ | async as accounts">
+      <div class="panel_container_card" *ngFor="let account of accounts">
+        <div class="card" style="">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="card-img-top"
+               alt="...">
+
+          <div class="card-body">
+            <h5 class="card-title">{{ account.login }}</h5>
+            <p class="card-text">Full name: {{ account.firstName }} {{ account.lastName }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngIf="account.age" class="list-group-item">Birthday day: {{ account.age }}</li>
+            <li *ngIf="!account.age" class="list-group-item">Birthday day: User didn't write his age :(</li>
+            <li *ngIf="account.country" class="list-group-item">Country: {{ account.country }}</li>
+            <li *ngIf="!account.country" class="list-group-item">Country: User didn't write his country :(</li>
+            <li class="list-group-item">Role type: {{ account.roleType }}</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

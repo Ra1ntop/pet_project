@@ -33,18 +33,17 @@ public class AuthorizationSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/open/**", "/api/auth/**", "/swagger-ui/**", "v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/open/**", "/api/auth/**").permitAll()
                         .requestMatchers(GET, "/api/customer/", "/api/customer/cart/", "/api/customer/order/", "/api/account/").hasAuthority(CUSTOMER_READ.name())
                         .requestMatchers(POST, "/api/customer/", "/api/account/").hasAuthority(CUSTOMER_CREATE.name())
                         .requestMatchers(PUT, "/api/customer/", "/api/customer/order/cancel-order/", "/api/customer/order/", "/api/account/").hasAuthority(CUSTOMER_UPDATE.name())
                         .requestMatchers(DELETE, "/api/customer/", "/api/account/").hasAuthority(CUSTOMER_DELETE.name())
 
-                        .requestMatchers(GET, "/api/admin/", "/api/account/").hasAuthority(ADMIN_READ.name())
+                        .requestMatchers(GET, "/api/admin", "/api/account/", "/api/admin/panel").hasAuthority(ADMIN_READ.name())
                         .requestMatchers(POST, "/api/admin/", "/api/account/").hasAuthority(ADMIN_CREATE.name())
                         .requestMatchers(PUT, "/api/admin/", "/api/account/").hasAuthority(ADMIN_UPDATE.name())
                         .requestMatchers(DELETE, "/api/admin/", "/api/account/").hasAuthority(ADMIN_DELETE.name())
                         .anyRequest().authenticated()
-
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
