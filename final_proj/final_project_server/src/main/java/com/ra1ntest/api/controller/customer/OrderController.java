@@ -28,7 +28,6 @@ public class OrderController {
 
     @PutMapping("/cancel-order")
     public ResponseEntity<String> cancelOrder(@RequestParam Long orderId) {
-        System.out.println("orderId = " + orderId);
         orderFacade.cancelOrder(orderId);
         return ResponseEntity.status(201).build();
     }
