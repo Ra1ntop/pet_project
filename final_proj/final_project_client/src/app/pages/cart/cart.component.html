@@ -3,7 +3,7 @@
 <div class="mycart-container">
   <div class="content">
     <div class="cart-header">
-      <h2>Корзина</h2>
+      <h2>Cart</h2>
     </div>
 
     <ng-container *ngIf="products$ | async as products">
@@ -13,11 +13,11 @@
             <img src="{{product?.image}}" class="car_container_image" alt="...">
             <div class="card_body_items">
               <h5 class="myCard-title">{{ product?.name }}</h5>
-              <p class="myCard-text">Об'єм пам'яті: {{ product?.ssd }}</p>
-              <p class="myCard-text">Коліт: {{ product?.color }}</p>
+              <p class="myCard-text">Storage capacity: {{ product?.ssd }}</p>
+              <p class="myCard-text">Color: {{ product?.color }}</p>
             </div>
             <div class="card_body_chose_capacity">
-              <p class="myCard-title">Кількість: </p>
+              <p class="myCard-title">Quantity: </p>
               <div class="card_body_chose_capacity_inner">
                 <button (click)="decreaseQuantity(product.productVariantId)"
                         class="card_body_chose_capacity_inner_button"><
@@ -27,16 +27,16 @@
                         class="card_body_chose_capacity_inner_button">>
                 </button>
               </div>
-              <p class="myCard-text">Ціна: {{ product.price }}</p>
+              <p class="myCard-text">Price: {{ product.price }}</p>
             </div>
             <button (click)="deleteProductFromCart(product.productVariantId)" class="btn btn-primary rounded-pill">
-              Видалити
+              Delete
             </button>
           </div>
         </div>
       </div>
       <div class="cart-total">
-        Всего: {{products.at(0)?.totalPrice}}
+        Total price: {{products.at(0)?.totalPrice}}
       </div>
     </ng-container>
     <div class="order">

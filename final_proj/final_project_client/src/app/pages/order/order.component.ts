@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {OrderService} from "../../services/order.service";
 import {OrderData} from "../../models/order-data";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -12,7 +12,8 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
   imports: [
     AsyncPipe,
     NgIf,
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'

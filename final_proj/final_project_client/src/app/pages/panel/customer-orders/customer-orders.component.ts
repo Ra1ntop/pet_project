@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import {Router} from "@angular/router";
-import {PdpService} from "../../../services/pdp.service";
 import {CustomerOrdersService} from "../../../services/customer-orders.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {OrderData} from "../../../models/order-data";
 import {OrderService} from "../../../services/order.service";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ChangeOrderData} from "../../../models/change-order-data";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-customer-orders',
@@ -13,7 +15,8 @@ import {OrderService} from "../../../services/order.service";
   imports: [
     AsyncPipe,
     NgForOf,
-    NgIf
+    NgIf,
+    ReactiveFormsModule,
   ],
   templateUrl: './customer-orders.component.html',
   styleUrl: './customer-orders.component.scss'
@@ -26,6 +29,11 @@ export class CustomerOrdersComponent implements OnInit, OnDestroy {
   private _productPdpSub$ =
     new BehaviorSubject<OrderData[] | undefined>(undefined);
   readonly productPdp$: Observable<OrderData[] | undefined> = this._productPdpSub$.asObservable();
+
+  form: FormGroup = this._fb.group({
+    status: new FormControl(null, [Validators.required]),
+    checkBox: new FormControl(null, [Validators.required]),
+  })
 
   showModal = false;
   orderId: string = "";
@@ -40,7 +48,22 @@ export class CustomerOrdersComponent implements OnInit, OnDestroy {
   }
 
   changeOrderStatus(id: number) {
-
+    console.log(this.form.value)
+    if (this.form.valid) {
+      let data: ChangeOrderData = {...this.form.value}
+      data.id = id;
+      this._subscription.add(
+        this._customerOrdersService.changeOrderStatus(data).subscribe(
+          () => {
+            this.closeModal();
+            location.reload();
+          },
+          (erro) => {
+            console.log(erro);
+          }
+        )
+      );
+    }
   }
 
   closeModal() {
@@ -51,12 +74,21 @@ export class CustomerOrdersComponent implements OnInit, OnDestroy {
 
   constructor(
     private _router: Router,
-    private _pdpService: PdpService,
+    private _fb: FormBuilder,
     private _customerOrdersService: CustomerOrdersService,
-    private _orderService: OrderService) {
+    private _orderService: OrderService,
+    private _authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this._subscription.add(
+      this._authService.isLoginIn()
+        .subscribe(isLoginIn => {
+          if (!isLoginIn) {
+            this._router.navigateByUrl('/login');
+          }
+        })
+    );
     let url = this._router.routerState.snapshot.url;
     let customerId = url.slice(17);
     if (customerId) {
@@ -72,6 +104,7 @@ export class CustomerOrdersComponent implements OnInit, OnDestroy {
           })
       );
     }
+
 
   }
 

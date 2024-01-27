@@ -1,5 +1,6 @@
 package com.ra1ntest.service.order;
 
+import com.ra1ntest.api.dto.request.panel.ChangeOrderDto;
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.order.Order;
 
@@ -12,9 +13,9 @@ public interface OrderService {
 
     void cancelOrder(Long orderId);
 
-    List<Order> findOrdersByCart(Cart cart);
+    void changeOrderStatus(ChangeOrderDto changeOrderDto);
+
 
     List<Order> findOrdersByCustomerId(Long id);
 
-    void updateOrder();
 }

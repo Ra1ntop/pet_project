@@ -6,4 +6,6 @@ export interface OrderData {
   orderId: string,
   cartEntry: CartItems[];
   orderStatus: string;
+  createdAt: string;
+  updatedAt: string;
 }

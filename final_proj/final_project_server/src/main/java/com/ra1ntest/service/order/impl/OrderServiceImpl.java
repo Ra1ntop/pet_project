@@ -1,5 +1,6 @@
 package com.ra1ntest.service.order.impl;
 
+import com.ra1ntest.api.dto.request.panel.ChangeOrderDto;
 import com.ra1ntest.exception.EntityNotFoundException;
 import com.ra1ntest.persistance.entity.cart.Cart;
 import com.ra1ntest.persistance.entity.order.Order;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -52,9 +52,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findOrdersByCart(Cart cart) {
-        return null;
+    public void changeOrderStatus(ChangeOrderDto changeOrderDto) {
+        Order order = orderRepository.findOrderById(changeOrderDto.getId());
+        if (order != null) {
+            order.setOrderStatus(changeOrderDto.getStatus());
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            order.setUpdatedAt(String.valueOf(currentDateTime));
+            orderRepository.save(order);
+        } else {
+            throw new EntityNotFoundException("Order not founded");
+        }
     }
+
 
     @Override
     public List<Order> findOrdersByCustomerId(Long id) {
@@ -62,8 +71,4 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
-    @Override
-    public void updateOrder() {
-
-    }
 }

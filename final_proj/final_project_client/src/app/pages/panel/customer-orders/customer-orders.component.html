@@ -1,16 +1,16 @@
 <div *ngIf="ordersNull.length>0" class="ordersNull">
-  <h1>{{ordersNull}}</h1>
+  <h1>{{ ordersNull }}</h1>
 </div>
 <div>
 
 </div>
 <ng-container *ngIf="productPdp$ | async as orders">
 
-  <div (click)="closeModal()" *ngIf="showModal" class="overlay ">
+  <div *ngIf="showModal" class="overlay ">
     <ng-container *ngFor="let order of orders">
       <div *ngIf="order.orderId == orderId" class="overlay_inner ">
-        <button class="close" (click)="closeModal()"></button>
         <p class="card_order_info_container_order_inner_items_p">Order id: {{ orderId }}</p>
+        <button class="" (click)="closeModal()">Close</button>
         <div *ngFor="let i of order.cartEntry" class="overlay_order_container ">
           <div class="overlay_order_container-inner-card">
             <div class="overlay_order_container-inner-card-prod-container">
@@ -23,7 +23,6 @@
                 <p>{{ i.quantity }}</p>
               </div>
             </div>
-
             <img src="{{i.image}}" alt="" class="img_order">
           </div>
           <div class="overlay-order-inner-info-prod">
@@ -39,17 +38,39 @@
                 <p>{{ i.price }}</p>
               </div>
             </div>
-
           </div>
         </div>
+        <p>Created at: {{ order.createdAt }}</p>
+        <p *ngIf="order.updatedAt">Updated at: {{ order.updatedAt }}</p>
         <p>Total price: {{ order.price }}</p>
+        <form [formGroup]="form">
+
+          <label for="pet-select">Choose a pet:</label>
+          <select formControlName="status" name="pets" id="pet-select">
+            <option value="">--Please choose an option--</option>
+            <option value="Pending">Pending</option>
+            <option value="Canceled">Canceled</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+          </select>
+          <div class="mb-3 form-check">
+            <input formControlName="checkBox" type="checkBox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">I want to change order status</label>
+          </div>
+          <button type="submit" class="btn btn-primary" disabled *ngIf="!form.valid">Submit</button>
+          <button (click)="changeOrderStatus(order.id)" type="submit" class="btn btn-primary" *ngIf="form.valid">
+            Submit
+          </button>
+
+
+        </form>
       </div>
     </ng-container>
   </div>
   <div class="container_order">
 
     <div class="card_container_order" *ngFor="let order of orders">
-      <ng-container *ngIf="order.orderStatus.includes(Pending)">
+      <ng-container *ngIf="!order.orderStatus.includes(Canceled)">
         <div class="card_order_info_container_order">
           <div class="card_order_info_container_order_inner_items">
             <p class="card_order_info_container_order_inner_items_p">orderId:</p>
@@ -76,7 +97,8 @@
           <div class="card_order_info_container_order_inner_items_cart">
             <button (click)="openModal(order.orderId)">Open products</button>
           </div>
-          <button (click)="changeOrderStatus(order.id)">Cancel order</button>
+
+
         </div>
       </ng-container>
     </div>

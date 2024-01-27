@@ -1,6 +1,7 @@
 package com.ra1ntest.api.controller.admin;
 
 import com.ra1ntest.api.dto.request.panel.BlockCustomerDto;
+import com.ra1ntest.api.dto.request.panel.ChangeOrderDto;
 import com.ra1ntest.api.dto.response.account.CustomersDto;
 import com.ra1ntest.api.dto.response.order.OrderDto;
 import com.ra1ntest.facade.account.AccountFacade;
@@ -38,9 +39,11 @@ public class AdminController {
         List<OrderDto> orderDtos = orderFacade.findOrdersByCustomerId(customerId);
         return ResponseEntity.ok(orderDtos);
     }
-    @GetMapping("/test")
-    public String getTest() {
-        return "Admin get Test";
+
+    @PutMapping("/change-order")
+    public ResponseEntity<String> changeOrder(@RequestBody ChangeOrderDto changeOrderDto) {
+        orderFacade.changeOrderStatus(changeOrderDto);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping()

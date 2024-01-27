@@ -1,11 +1,12 @@
-<div class="block_user_container">
-  <div class="block_user_container_inner">
-    <a routerLink="/block-user" type="button" class="btn btn-secondary">Block user</a>
+<ng-container *ngIf="accounts$ | async as accounts">
+
+  <div class="block_user_container">
+    <div class="block_user_container_inner">
+      <a routerLink="/block-user" type="button" class="btn btn-secondary">Block user</a>
+    </div>
   </div>
-</div>
-<div class="panel_container">
-  <div class="panel_container_inner">
-    <ng-container *ngIf="accounts$ | async as accounts">
+  <div class="panel_container">
+    <div class="panel_container_inner">
       <div class="panel_container_card" *ngFor="let account of accounts">
         <div class="card" style="">
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="card-img-top"
@@ -28,11 +29,11 @@
             </ng-container>
           </ul>
           <div class="card-body">
-            <a (click)="goToCustomerOrders(account.accountId)" routerLink="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <a (click)="goToCustomerOrders(account.accountId)" class="card-link">Customer's orders</a>
           </div>
         </div>
       </div>
-    </ng-container>
+
+    </div>
   </div>
-</div>
+</ng-container>

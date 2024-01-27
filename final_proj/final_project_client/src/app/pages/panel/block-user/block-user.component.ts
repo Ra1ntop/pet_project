@@ -1,10 +1,11 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import {BlockService} from "../../../services/block.service";
 import {BlockCustomer} from "../../../models/block-customer";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-block-user',
@@ -17,7 +18,7 @@ import {BlockCustomer} from "../../../models/block-customer";
   templateUrl: './block-user.component.html',
   styleUrl: './block-user.component.scss'
 })
-export class BlockUserComponent implements OnDestroy {
+export class BlockUserComponent implements OnDestroy, OnInit {
   private _sub = new Subscription();
 
   form: FormGroup = this._fb.group({
@@ -26,8 +27,21 @@ export class BlockUserComponent implements OnDestroy {
     checkBox: new FormControl(null, [Validators.requiredTrue]),
   });
 
-  constructor(private _fb: FormBuilder, private _router: Router, private _blockService: BlockService) {
+  constructor(private _fb: FormBuilder, private _router: Router, private _blockService: BlockService, private _authService: AuthService) {
   }
+
+  ngOnInit(): void {
+    this._sub.add(
+      this._authService.isLoginIn()
+        .subscribe(isLoginIn => {
+          if (!isLoginIn) {
+            this._router.navigateByUrl('/login');
+          }
+        })
+    );
+  }
+
+
 
   accountHaveBlocked: boolean = false;
   errorHtml: string = "";
@@ -35,6 +49,7 @@ export class BlockUserComponent implements OnDestroy {
   closeModal() {
     this.accountHaveBlocked = false;
   }
+
   blockCustomer(): void {
     if (this.form.valid) {
       console.log(this.form);

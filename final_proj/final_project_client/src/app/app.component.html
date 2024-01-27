@@ -8,46 +8,45 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <a class="nav-link active" aria-current="page" routerLink="/plp">iPhone</a>
-            <a class="nav-link" routerLink="/pdp">pdp Test </a>
-            <a class="nav-link" href="#">Pricing</a>
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link active" aria-current="page" routerLink="/plp">iPhone</a>
+          <a class="nav-link" href="#">Pricing</a>
 
-          <div class="dropdown" *ngIf="(isLoginIn$ | async)">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-              My Account
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="/account">My profile</a></li>
-              <li><a class="dropdown-item" routerLink="/order">Orders</a></li>
-              <ng-container *ngIf="isLoginIn$ | async">
-                <button (click)="logout()" class="btn btn-primary me-md-2" type="button">logout
-                </button>
-                <a routerLink="/cart">Cart</a>
-              </ng-container>
-            </ul>
-          </div>
 
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <ng-container *ngIf="!(isLoginIn$ | async)">
-              <button (click)="login()" class="btn btn-primary" type="button">login</button>
-              <a routerLink="/register" type="button" class="btn btn-primary">Register</a>
-            </ng-container>
-          </div>
         </ul>
+
+      </div>
+      <div class="dropdown_container">
+        <div class="dropdown" *ngIf="(isLoginIn$ | async)">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            My Account
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/account">My profile</a></li>
+            <li><a class="dropdown-item" routerLink="/order">Orders</a></li>
+            <li><a class="dropdown-item" routerLink="/cart">Cart</a></li>
+            <li><a style="color: red" (click)="logout()" class="dropdown-item ">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <ng-container *ngIf="!(isLoginIn$ | async)">
+          <button (click)="login()" class="btn btn-primary" type="button">login</button>
+          <a routerLink="/register" type="button" class="btn btn-primary">Register</a>
+        </ng-container>
       </div>
     </div>
   </nav>
+
   <router-outlet></router-outlet>
   <div class="container">
     <footer class="py-3">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a routerLink="" class="nav-link px-2 text-body-secondary">Home</a></li>
+        <li class="nav-item"><a routerLink="/home" class="nav-link px-2 text-body-secondary">Home</a></li>
         <li class="nav-item"><a routerLink="/plp" class="nav-link px-2 text-body-secondary">iPhone</a></li>
-        <li class="nav-item"><a routerLink="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-        <li class="nav-item"><a routerLink="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-        <li class="nav-item"><a routerLink="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        <li class="nav-item"><a routerLink="/order" class="nav-link px-2 text-body-secondary">Orders</a></li>
+        <li class="nav-item"><a routerLink="/cart" class="nav-link px-2 text-body-secondary">Cart</a></li>
+        <li class="nav-item"><a routerLink="/account" class="nav-link px-2 text-body-secondary">Profile</a></li>
       </ul>
       <p class="text-center text-body-secondary">© 2024 Ra1n Studio, Inc</p>
     </footer>

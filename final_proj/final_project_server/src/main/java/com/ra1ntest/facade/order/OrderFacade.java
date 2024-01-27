@@ -1,5 +1,6 @@
 package com.ra1ntest.facade.order;
 
+import com.ra1ntest.api.dto.request.panel.ChangeOrderDto;
 import com.ra1ntest.api.dto.response.order.OrderDto;
 import com.ra1ntest.persistance.entity.cart.Cart;
 
@@ -16,4 +17,6 @@ public interface OrderFacade {
 
 
     void cancelOrder(Long orderId);
+
+    void changeOrderStatus(ChangeOrderDto changeOrderDto);
 }

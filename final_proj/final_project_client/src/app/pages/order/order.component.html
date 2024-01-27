@@ -1,4 +1,14 @@
 <ng-container *ngIf="orders$ | async as orders">
+  <div *ngIf="orders.length<1">
+    <div class="account_order_center_content">
+      <h1>You haven't placed any orders yet</h1>
+    </div>
+    <div class="account_order_center_content">
+      <a routerLink="/plp" class="btn btn-secondary">
+        <h5>Do it now</h5>
+      </a>
+    </div>
+  </div>
 
   <div (click)="closeModal()" *ngIf="showModal" class="overlay ">
     <ng-container *ngFor="let order of orders">
@@ -37,30 +47,32 @@
           </div>
         </div>
         <p>Total price: {{ order.price }}</p>
+        <p>Created at: {{ order.createdAt }}</p>
+        <p>Updated at: {{ order.updatedAt }}</p>
       </div>
     </ng-container>
   </div>
   <div class="container_order">
 
     <div class="card_container_order" *ngFor="let order of orders">
-      <ng-container *ngIf="order.orderStatus.includes(Pending)">
+      <ng-container *ngIf="!order.orderStatus.includes(Canceled)">
         <div class="card_order_info_container_order">
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderId:</p>
+            <p class="card_order_info_container_order_inner_items_p">Order id:</p>
             <p>{{ order.orderId }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">price:</p>
+            <p class="card_order_info_container_order_inner_items_p">Price:</p>
             <p>{{ order.price }}</p>
 
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderStatus: </p>
+            <p class="card_order_info_container_order_inner_items_p">Order status: </p>
             <p> {{ order.orderStatus }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
             <p class="card_order_info_container_order_inner_items_p">
-              Name:
+              Items:
             </p>
             <span *ngFor="let item of order.cartEntry">
             {{ item.name }}
@@ -78,21 +90,22 @@
       <ng-container *ngIf="order.orderStatus.includes(Canceled)">
         <div class="card_order_info_container_order card_order_info_container_order_inner_items_p">
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderId:</p>
+            <p class="card_order_info_container_order_inner_items_p">Order Id:</p>
             <p>{{ order.orderId }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">price:</p>
+            <p class="card_order_info_container_order_inner_items_p">Price:</p>
             <p>{{ order.price }}</p>
 
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderStatus: </p>
+            <p class="card_order_info_container_order_inner_items_p">Order status: </p>
             <p class=""> {{ order.orderStatus }}</p>
           </div>
+
           <div class="card_order_info_container_order_inner_items">
             <p class="card_order_info_container_order_inner_items_p">
-              Name:
+              Items:
             </p>
             <span *ngFor="let item of order.cartEntry">
             {{ item.name }}

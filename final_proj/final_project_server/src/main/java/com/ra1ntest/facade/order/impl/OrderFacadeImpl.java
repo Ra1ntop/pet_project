@@ -1,5 +1,6 @@
 package com.ra1ntest.facade.order.impl;
 
+import com.ra1ntest.api.dto.request.panel.ChangeOrderDto;
 import com.ra1ntest.api.dto.response.cart.CartItemsDto;
 import com.ra1ntest.api.dto.response.order.OrderDto;
 import com.ra1ntest.facade.order.OrderFacade;
@@ -48,23 +49,18 @@ public class OrderFacadeImpl implements OrderFacade {
             Cart cart = carts.get(i);
             orderDtos.add(findOrder(cart));
         }
-
-        System.out.println(orderDtos);
         Collections.reverse(orderDtos);
         return orderDtos;
     }
 
     @Override
     public List<OrderDto> findOrdersByCustomerId(Long customerId) {
-        orderService.findOrdersByCustomerId(customerId);
         List<OrderDto> orderDtos = new ArrayList<>();
         List<Cart> carts = cartService.findCartsByCustomerId(customerId);
         for (int i = 0; i < carts.size(); i++) {
             Cart cart = carts.get(i);
             orderDtos.add(findOrder(cart));
         }
-
-        System.out.println(orderDtos);
         Collections.reverse(orderDtos);
         return orderDtos;
     }
@@ -72,6 +68,11 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public void cancelOrder(Long orderId) {
         orderService.cancelOrder(orderId);
+    }
+
+    @Override
+    public void changeOrderStatus(ChangeOrderDto changeOrderDto) {
+        orderService.changeOrderStatus(changeOrderDto);
     }
 
 }
