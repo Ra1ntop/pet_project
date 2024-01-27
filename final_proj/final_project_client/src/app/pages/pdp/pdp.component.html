@@ -42,7 +42,8 @@ priceVariant: price$ | async
                 [class.btn-outline-secondary]="ssd !== form.controls['ssd'].value"
                 (click)="addSsd(ssd)"
                 type="button"
-                class="btn">{{ssd}}</button>
+                class="btn">{{ ssd }}
+              </button>
             </ng-container>
           </div>
           <div class="product_color_choise">
@@ -53,7 +54,8 @@ priceVariant: price$ | async
                 [class.btn-outline-secondary]="color !== form.controls['color'].value"
                 (click)="addColor(color)"
                 type="button"
-                class="btn">{{color}}</button>
+                class="btn">{{ color }}
+              </button>
             </ng-container>
           </div>
         </div>
@@ -65,23 +67,71 @@ priceVariant: price$ | async
             (click)="shopNow(config.priceVariant?.productId)"
             type="button"
             class="btn btn-outline-success">
-            {{config.priceVariant?.price}}
+            {{ config.priceVariant?.price }}
           </button>
           <button
             *ngIf="(isLoginIn$ | async)"
             (click)="shopNow(config.priceVariant?.productId)"
             type="button"
             class="btn btn-outline-success">
-            {{config.priceVariant?.price}}
+            {{ config.priceVariant?.price }}
           </button>
         </div>
         <div class="middle_text_footer_inner" *ngIf="!config.priceVariant?.price">
           <h3>Price</h3>
           <button
-          type="button" class="btn btn-outline-success disabled">Buy</button>
+            type="button" class="btn btn-outline-success disabled">Buy
+          </button>
         </div>
       </div>
     </div>
 
+  </div>
+  <div class="product-card-info">
+    <div class="product-card-info-inner">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="product-card-body-inner-name">
+            <h5 class="card-title">{{ config.product?.name }}</h5>
+          </div>
+          <p class="card-text"> {{ config.product?.description }}</p>
+
+          <div class="product-card-body-inner-name">
+            <img src="{{config.product?.images?.at(0)}}" class="" alt="...">
+          </div>
+          <div class="product-card-body-inner-name">
+
+            <img src="{{config.product?.images?.at(3)}}" alt="">
+          </div>
+          <div class="product-card-body-inner-container-info">
+            <div class="product-card-body-inner-info">
+              <p class="card-text">Cpu: </p>
+              <p class="card-text">Ram: </p>
+              <p class="card-text">Camera: </p>
+              <p class="card-text">Safety: </p>
+              <p class="card-text">Battery: </p>
+              <p class="card-text">Os: </p>
+              <p class="card-text">Sim card: </p>
+              <p class="card-text">Sensors: </p>
+              <p class="card-text">Water resistance: </p>
+              <p class="card-text">Video recording: </p>
+            </div>
+            <div class="product-card-body-inner-info">
+              <p class="card-text">{{ config.product?.cpu }}</p>
+              <p class="card-text">{{ config.product?.ram }}</p>
+              <p class="card-text">{{ config.product?.camera }}</p>
+              <p class="card-text">{{ config.product?.safety }}</p>
+              <p class="card-text">{{ config.product?.battery }}</p>
+              <p class="card-text">{{ config.product?.os }}</p>
+              <p class="card-text">{{ config.product?.simCard }}</p>
+              <p class="card-text">{{ config.product?.sensors }}</p>
+              <p class="card-text">{{ config.product?.waterResistance }}</p>
+              <p class="card-text">{{ config.product?.videoRecording }}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </ng-container>

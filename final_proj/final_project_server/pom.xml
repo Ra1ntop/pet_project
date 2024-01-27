@@ -6,12 +6,12 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 
 	<groupId>com.ra1ntest</groupId>
 	<artifactId>final_project_server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.9-SNAPSHOT</version>
 
 	<name>final_project_server</name>
 	<description>final_project_server</description>

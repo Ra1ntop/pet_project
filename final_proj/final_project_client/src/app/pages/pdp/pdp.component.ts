@@ -77,11 +77,9 @@ export class PdpComponent implements OnInit, OnDestroy {
             return this.productPdp$
               .pipe(
                 map(product => {
-                  console.log('value', value);
                   let variants = product?.variantDtos;
                   variants?.forEach(variant=>{
                     if (variant.ssd === value.ssd){
-                      console.log('variant', variant)
                       this.colorSet.add(variant.productColor);
                     }
                   })
