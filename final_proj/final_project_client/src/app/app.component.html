@@ -1,7 +1,7 @@
 <div class="main_container">
   <nav class="navbar navbar-expand-lg bg-body-tertiary ">
     <div class="container-fluid myNavBar">
-      <a class="navbar-brand" routerLink="">Navbar</a>
+      <a class="navbar-brand" routerLink="">RS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,9 +30,10 @@
           </div>
 
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-
-
-            <button (click)="login()" class="btn btn-primary" type="button" *ngIf="!(isLoginIn$ | async)">login</button>
+            <ng-container *ngIf="!(isLoginIn$ | async)">
+              <button (click)="login()" class="btn btn-primary" type="button">login</button>
+              <a routerLink="/register" type="button" class="btn btn-primary">Register</a>
+            </ng-container>
           </div>
         </ul>
       </div>
@@ -48,7 +49,7 @@
         <li class="nav-item"><a routerLink="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
         <li class="nav-item"><a routerLink="#" class="nav-link px-2 text-body-secondary">About</a></li>
       </ul>
-      <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
+      <p class="text-center text-body-secondary">© 2024 Ra1n Studio, Inc</p>
     </footer>
   </div>
 </div>

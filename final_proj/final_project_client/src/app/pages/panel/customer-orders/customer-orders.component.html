@@ -1,7 +1,9 @@
 <div *ngIf="ordersNull.length>0" class="ordersNull">
   <h1>{{ordersNull}}</h1>
 </div>
+<div>
 
+</div>
 <ng-container *ngIf="productPdp$ | async as orders">
 
   <div (click)="closeModal()" *ngIf="showModal" class="overlay ">

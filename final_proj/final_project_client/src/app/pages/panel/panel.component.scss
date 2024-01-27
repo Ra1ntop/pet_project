@@ -18,3 +18,10 @@
   width: 32%;
   padding-bottom: 50px;
 }
+
+.block_user_container_inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+}
