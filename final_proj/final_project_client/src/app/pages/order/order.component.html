@@ -80,9 +80,10 @@
 
           </div>
           <div class="card_order_info_container_order_inner_items_cart">
-            <button (click)="openModal(order.orderId)">Open products</button>
+            <button class="btn btn-outline-secondary" (click)="openModal(order.orderId)">Open products</button>
           </div>
-          <button (click)="cancelOrder(order.id)">Cancel order</button>
+          <button class="btn btn-secondary" style="margin-right: 5px" (click)="cancelOrder(order.id)">Cancel order
+          </button>
         </div>
       </ng-container>
     </div>
@@ -113,7 +114,7 @@
 
           </div>
           <div class="card_order_info_container_order_inner_items_cart">
-            <button (click)="openModal(order.orderId)">Open products</button>
+            <button class="btn btn-outline-secondary" (click)="openModal(order.orderId)">Open products</button>
           </div>
         </div>
       </ng-container>

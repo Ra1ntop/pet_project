@@ -29,7 +29,8 @@
               </div>
               <p class="myCard-text">Price: {{ product.price }}</p>
             </div>
-            <button (click)="deleteProductFromCart(product.productVariantId)" class="btn btn-primary rounded-pill">
+            <button (click)="deleteProductFromCart(product.productVariantId)"
+                    class="btn btn-outline-secondary rounded-pill">
               Delete
             </button>
           </div>
@@ -40,7 +41,7 @@
       </div>
     </ng-container>
     <div class="order">
-      <button (click)="createOrder()">ORDER NOW</button>
+      <button class="btn btn-secondary" (click)="createOrder()">ORDER NOW</button>
     </div>
 
 

@@ -36,15 +36,17 @@ priceVariant: price$ | async
         <div class="middle_text_middle_inner">
           <div class="ssd_capacity">
             <h3>SSD:</h3>
+
             <ng-container *ngFor="let ssd of ssdSet">
               <button
                 [class.btn-dark]="ssd === form.controls['ssd'].value"
                 [class.btn-outline-secondary]="ssd !== form.controls['ssd'].value"
                 (click)="addSsd(ssd)"
                 type="button"
-                class="btn">{{ ssd }}
+                class="btn ssd_capacity_inner">{{ ssd }}
               </button>
             </ng-container>
+
           </div>
           <div class="product_color_choise">
             <h3>Color:</h3>
@@ -54,7 +56,7 @@ priceVariant: price$ | async
                 [class.btn-outline-secondary]="color !== form.controls['color'].value"
                 (click)="addColor(color)"
                 type="button"
-                class="btn">{{ color }}
+                class="btn ssd_capacity_inner">{{ color }}
               </button>
             </ng-container>
           </div>
