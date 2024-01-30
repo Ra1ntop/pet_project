@@ -15,8 +15,11 @@
         <input formControlName="checkBox" type="checkBox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">I agree with rules</label>
       </div>
-      <button type="submit" class="btn btn-primary" disabled *ngIf="!form.valid">Submit</button>
-      <button (click)="login()" type="submit" class="btn btn-primary" *ngIf="form.valid">Submit</button>
+      <div id="emailHelp1" class="form-text">New to RS? <a routerLink="/register">Sign up!</a></div>
+      <div class="button_container">
+        <button type="submit" class="btn btn-outline-secondary" disabled *ngIf="!form.valid">Submit</button>
+        <button (click)="login()" type="submit" class="btn btn-primary" *ngIf="form.valid">Submit</button>
+      </div>
     </form>
   </div>
 </div>

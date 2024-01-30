@@ -9,8 +9,11 @@
   <div *ngIf="showModal" class="overlay ">
     <ng-container *ngFor="let order of orders">
       <div *ngIf="order.orderId == orderId" class="overlay_inner ">
-        <p class="card_order_info_container_order_inner_items_p">Order id: {{ orderId }}</p>
-        <button class="" (click)="closeModal()">Close</button>
+        <div class="header_container">
+          <p class="card_order_info_container_order_inner_items_p">Order id: {{ orderId }}</p>
+          <button class="btn btn-outline-danger header_button" (click)="closeModal()">Close</button>
+        </div>
+
         <div *ngFor="let i of order.cartEntry" class="overlay_order_container ">
           <div class="overlay_order_container-inner-card">
             <div class="overlay_order_container-inner-card-prod-container">
@@ -43,10 +46,10 @@
         <p>Created at: {{ order.createdAt }}</p>
         <p *ngIf="order.updatedAt">Updated at: {{ order.updatedAt }}</p>
         <p>Total price: {{ order.price }}</p>
-        <form [formGroup]="form">
+        <form [formGroup]="form" class="overlay_form_container">
 
-          <label for="pet-select">Choose a pet:</label>
-          <select formControlName="status" name="pets" id="pet-select">
+          <label for="status-select">Choose a status:</label>
+          <select formControlName="status" name="status" id="status-select">
             <option value="">--Please choose an option--</option>
             <option value="Pending">Pending</option>
             <option value="Canceled">Canceled</option>
@@ -73,16 +76,16 @@
       <ng-container *ngIf="!order.orderStatus.includes(Canceled)">
         <div class="card_order_info_container_order">
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderId:</p>
+            <p class="card_order_info_container_order_inner_items_p">Order id:</p>
             <p>{{ order.orderId }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">price:</p>
+            <p class="card_order_info_container_order_inner_items_p">Price:</p>
             <p>{{ order.price }}</p>
 
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderStatus: </p>
+            <p class="card_order_info_container_order_inner_items_p">Order status: </p>
             <p> {{ order.orderStatus }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
@@ -95,7 +98,7 @@
 
           </div>
           <div class="card_order_info_container_order_inner_items_cart">
-            <button (click)="openModal(order.orderId)">Open products</button>
+            <button class="btn btn-secondary" (click)="openModal(order.orderId)">Open products</button>
           </div>
 
 
@@ -106,16 +109,16 @@
       <ng-container *ngIf="order.orderStatus.includes(Canceled)">
         <div class="card_order_info_container_order card_order_info_container_order_inner_items_p">
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderId:</p>
+            <p class="card_order_info_container_order_inner_items_p">Order id:</p>
             <p>{{ order.orderId }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">price:</p>
+            <p class="card_order_info_container_order_inner_items_p">Price:</p>
             <p>{{ order.price }}</p>
 
           </div>
           <div class="card_order_info_container_order_inner_items">
-            <p class="card_order_info_container_order_inner_items_p">orderStatus: </p>
+            <p class="card_order_info_container_order_inner_items_p">Order status: </p>
             <p class=""> {{ order.orderStatus }}</p>
           </div>
           <div class="card_order_info_container_order_inner_items">
@@ -128,7 +131,7 @@
 
           </div>
           <div class="card_order_info_container_order_inner_items_cart">
-            <button (click)="openModal(order.orderId)">Open products</button>
+            <button class="btn btn-outline-secondary" (click)="openModal(order.orderId)">Open products</button>
           </div>
         </div>
       </ng-container>

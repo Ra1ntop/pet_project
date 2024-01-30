@@ -4,14 +4,15 @@ import {AuthService} from "../../services/auth.service";
 import {NgIf} from "@angular/common";
 import {RegisterData} from "../../models/register-data";
 import {Subscription} from "rxjs";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

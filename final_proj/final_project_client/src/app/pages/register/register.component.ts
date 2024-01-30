@@ -25,7 +25,7 @@ export class RegisterComponent {
     lastName: new FormControl(null, [Validators.required, Validators.min(3)]),
     age: new FormControl(null, [Validators.required, Validators.min(18)]),
     password: new FormControl(null, [Validators.required, Validators.min(5)]),
-    country: new FormControl(null, [Validators.required, Validators.min(3)]),
+    country: new FormControl(null, [Validators.required]),
     checkBox: new FormControl(null, [Validators.requiredTrue]),
   });
 

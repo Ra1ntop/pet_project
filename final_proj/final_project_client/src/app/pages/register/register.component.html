@@ -1,37 +1,47 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center register-container">
   <div class="w-75">
     <form [formGroup]="form">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
-               aria-describedby="emailHelp">
+               aria-describedby="emailHelp" placeholder="F.e: example@gmail.com">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
       </div>
       <div class="mb-3">
-        <label for="examplefirstName" class="form-label">firstName</label>
-        <input formControlName="firstName" type="email" class="form-control" id="examplefirstName">
+        <label for="examplefirstName" class="form-label">First name</label>
+        <input formControlName="firstName" type="email" class="form-control" id="examplefirstName"
+               placeholder="First name">
       </div>
       <div class="mb-3">
-        <label for="examplelastName" class="form-label">lastName</label>
-        <input formControlName="lastName" type="email" class="form-control" id="examplelastName">
+        <label for="examplelastName" class="form-label">Last name</label>
+        <input formControlName="lastName" type="email" class="form-control" id="examplelastName"
+               placeholder="Last name">
       </div>
       <div class="mb-3">
-        <label for="exampleage" class="form-label">age</label>
+        <label for="exampleage" class="form-label">Date of birth</label>
         <input formControlName="age" type="date" class="form-control" id="exampleage">
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
+        <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1"
+               placeholder="Password">
       </div>
-      <div class="mb-3">
-        <label for="exampleInputcountry" class="form-label">Country</label>
-        <input formControlName="country" type="text" class="form-control" id="exampleInputcountry">
+      <div class="mb-3 country_container">
+        <label for="country-select">Choose a country:</label>
+        <select formControlName="country" name="country" id="country-select" class="form-select"
+                aria-label="Default select example">
+          <option value="">--Please choose an option--</option>
+          <option value="Ukraine">Ukraine</option>
+          <option value="Poland">Poland</option>
+          <option value="Germany">Germany</option>
+          <option value="Italy">Italy</option>
+        </select>
       </div>
       <div class="mb-3 form-check">
         <input formControlName="checkBox" type="checkBox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">I agree with rules</label>
       </div>
-      <button type="submit" class="btn btn-primary" disabled *ngIf="!form.valid">Submit</button>
+      <button type="submit" class="btn btn-outline-secondary" disabled *ngIf="!form.valid">Submit</button>
       <button (click)="register()" type="submit" class="btn btn-primary" *ngIf="form.valid">Submit</button>
     </form>
   </div>
