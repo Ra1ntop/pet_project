@@ -1,5 +1,5 @@
 # Pet project - Online shop
-This is a fully written by me Pat project, which is a mini online shop for iPhone sales.
+This is a fully written by me Pet project, which is a mini online shop for iPhone sales.
 
 During the writing of this project were used such technologies as: Java, Spring Boot, Angular(v17), Spring WEB, Spring Security, Spring JPA, Maven, JsonWebToket (JWT) and others.
 
